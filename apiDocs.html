@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Haobusiness API</title>
+
+  <!-- Prism CSS -->
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism.min.css"
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #242424;
+      line-height: 1.7;
+    }
+
+    /* Header */
+    .topbar {
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    /* Layout: sidebar kanan + konten tengah */
+    .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 250px;
+    gap: 40px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 24px;
+    align-items: start;
+    }
+
+    /* Sidebar kanan */
+    .sidebar {
+      position: sticky;
+      top: 88px;
+      max-height: calc(100dvh - 112px);
+      overflow-y: auto;
+      border-left: 2px solid #e5e7eb;
+    }
+
+    .sidebar a {
+    display: block;
+    padding: 1px 2px;
+    color: #666;
+    text-decoration: none;
+    border-radius: 6px;
+    border-right: 2px solid transparent;
+    transition: color 0.2s, background 0.2s;
+    }
+
+    .sidebar a:hover {
+    color: #2563eb;
+    background: #f3f6ff;
+    }
+
+    .sidebar a.active {
+    color: #0647F5;
+    font-weight: 600;
+    }
+
+    .nav-group {
+      margin-bottom: 24px;
+    }
+
+    .nav-parent {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .nav-children {
+    margin: 6px 0 0 10px;
+    padding-left: 10px;
+    }
+
+    .nav-group.nested {
+    margin: 4px 0 4px 10px;
+    padding-left: 8px;
+    }
+
+    /* Konten tengah */
+    .content {
+      min-width: 0;
+      max-width: 850px;
+      width: 100%;
+    }
+
+    .content section {
+      margin-bottom: 48px;
+      scroll-margin-top: 84px;
+    }
+
+    .content h1 {
+      font-size: 36px;
+      line-height: 1.2;
+    }
+
+    .content h2 {
+      margin-top: 36px;
+      font-size: 24px;
+    }
+
+    pre {
+      overflow-x: auto;
+      padding: 18px;
+      border-radius: 8px;
+      background: #f3f4f6;
+      font-size: 14px;
+    }
+
+    /* Tabel */
+    table {
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    }
+
+    caption {
+    caption-side: bottom;
+    padding: 10px;
+    font-weight: bold;
+    }
+
+    thead,
+    tfoot {
+    background-color: rgb(228 240 245);
+    }
+
+    th,
+    td {
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
+    }
+
+    td:last-of-type {
+    text-align: center;
+    }
+
+    tbody > tr:nth-of-type(even) {
+    background-color: rgb(237 238 242);
+    }
+
+    tfoot th {
+    text-align: right;
+    }
+
+    tfoot td {
+    font-weight: bold;
+    }
+
+    /* Tablet */
+    @media (max-width: 768px) {
+      .layout {
+        grid-template-columns: 210px minmax(0, 1fr);
+        gap: 24px;
+        padding: 20px;
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .layout {
+        display: block;
+        padding: 20px;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .content h1 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <strong>Haobusiness</strong>
+  </header>
+
+  <div class="layout">
+    <main class="content">
+      <h1>Haobusiness API Integration</h1>
+      <section id="introduction">
+        <h1>Introduction</h1>
+        <p>
+          Selamat datang di dokumentasi API.
+          Pelajari cara mengintegrasikan layanan
+          ke dalam aplikasi kamu.
+        </p>
+      </section>
+
+      <section id="installation">
+        <h2>Installation</h2>
+        <p>Instal SDK melalui package manager.</p>
+        <pre><code class="language-bash">npm install my-api-sdk</code></pre>
+      </section>
+
+      <section id="quick-start">
+        <h2>Quick Start</h2>
+        <p>Contoh permintaan API sederhana.</p>
+        <pre><code class="language-javascript">const response = await fetch("/api/v1/products");
+                   const data = await response.json();
+        </code></pre>
+      </section>
+
+      <section id="authentication">
+        <h2>Authentication</h2>
+      </section>
+
+      <section id="api-keys">
+        <h2>API Keys</h2>
+        <p>
+            API key adalah identitas unik yang digunakan untuk
+            mengautentikasi permintaan ke API. Sertakan API key
+            pada setiap permintaan untuk mengidentifikasi aplikasi
+            dan memverifikasi hak akses terhadap sumber daya
+            yang tersedia.
+        </p>
+
+        <p>
+            Jaga kerahasiaan API key Anda. Hindari menempatkan
+            key rahasia di kode frontend, repositori publik, atau
+            aplikasi yang dapat diakses langsung oleh pengguna.
+            Simpan kredensial sensitif di server dan segera ganti
+            API key jika diketahui telah bocor.
+        </p>
+      </section>
+
+      <section id="bearer-token">
+        <h2>Bearer Token</h2>
+        <p>
+            Bearer token adalah kredensial akses yang dikirim
+            melalui header Authorization pada permintaan HTTP.
+            API akan memvalidasi token untuk menentukan apakah
+            permintaan telah terautentikasi dan diizinkan
+            mengakses sumber daya yang diminta.
+        </p>
+
+        <p>
+            Gunakan skema autentikasi Bearer saat mengirim token.
+            Selalu gunakan HTTPS untuk melindungi kredensial
+            selama transmisi. Hindari mencatat token ke dalam
+            log atau membagikannya kepada pihak yang tidak
+            berwenang.
+        </p>
+
+        <pre><code class="language-javascript">Authorization: Bearer TOKEN_AKSES_ANDA</code></pre>
+      </section>
+
+      <section id="endpoints">
+        <h2>Endpoints</h2>
+        <h3>GET /api/v1/products</h3>
+        <p>Mengambil daftar produk.</p>
+        <pre><code class="language-javascript">fetch("/api/v1/products", {
+    method: "GET",
+    headers: {
+        "Authorization": "Bearer YOUR_API_KEY"
+    }
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+});
+        </code></pre>
+      </section>
+
+      <section id="errors">
+        <h2>Error Handling</h2>
+        <p>
+          Dokumentasikan HTTP status code,
+          kode error, dan cara penanganannya.
+        </p>
+      </section>
+    </main>
+
+    <aside class="sidebar">
+    <nav aria-label="Dokumentasi API">
+
+        <div class="nav-children">
+            <a href="#introduction">Introduction</a>
+            <a href="#installation">Installation</a>
+        </div>
+
+        <div class="nav-children">
+            <a href="#authentication">Authentication</a>
+
+            <div class="nav-group nested">
+            <a href="#api-keys">API Keys</a>
+            <a href="#bearer-token">Bearer Token</a>
+            </div>
+
+            <a href="#endpoints">Endpoints</a>
+            <a href="#errors">Error Handling</a>
+        </div>
+    </nav>
+    </aside>
+
+  </div>
+</body>
+</html>
+
+<!-- Intersection Observer (Sidebar Highlighter) -->
+<script>
+
+    const sections = document.querySelectorAll(
+    ".content section[id]"
+    );
+
+    const sidebarLinks = document.querySelectorAll(
+    ".sidebar a[href^='#']"
+    );
+
+    const linkById = new Map(
+    [...sidebarLinks].map(link => [
+        link.getAttribute("href").slice(1),
+        link
+    ])
+    );
+
+    const observer = new IntersectionObserver(
+    entries => {
+        entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        sidebarLinks.forEach(link => {
+            link.classList.remove("active");
+            link.removeAttribute("aria-current");
+        });
+
+        const activeLink = linkById.get(entry.target.id);
+
+        if (activeLink) {
+            activeLink.classList.add("active");
+            activeLink.setAttribute("aria-current", "location");
+        }
+        });
+    },
+    {
+        root: null,
+        rootMargin: "-15% 0px -70% 0px",
+        threshold: 0
+    }
+    );
+
+    sections.forEach(section => observer.observe(section));
+
+</script>
+
+<!-- Prism.js (Code Prettify) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-javascript.min.js"></script>
