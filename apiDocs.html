@@ -1,26 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Haobusiness API</title>
+  <title>Haobusiness API | Developer Docs</title>
 
-  <!-- Prism CSS -->
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 80px;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 
     body {
       margin: 0;
@@ -29,7 +19,6 @@
       line-height: 1.7;
     }
 
-    /* Header */
     .topbar {
       height: 64px;
       position: sticky;
@@ -42,339 +31,658 @@
       border-bottom: 1px solid #e5e7eb;
     }
 
-    /* Layout: sidebar kanan + konten tengah */
     .layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 250px;
-    gap: 40px;
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 24px;
-    align-items: start;
+      display: grid;
+      grid-template-columns: minmax(0, 850px) minmax(220px, 280px);
+      justify-content: center;
+      gap: clamp(32px, 5vw, 72px);
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 48px 32px 72px;
+      align-items: start;
     }
 
-    /* Sidebar kanan */
     .sidebar {
       position: sticky;
       top: 88px;
       max-height: calc(100dvh - 112px);
       overflow-y: auto;
-      border-left: 2px solid #e5e7eb;
+      padding: 10px 0 10px 18px;
+      border-left: 1px solid #d9dee8;
+      scrollbar-width: thin;
+      scrollbar-color: #c6ccd8 transparent;
+      overscroll-behavior: contain;
     }
 
     .sidebar a {
-    display: block;
-    padding: 1px 2px;
-    color: #666;
-    text-decoration: none;
-    border-radius: 6px;
-    border-right: 2px solid transparent;
-    transition: color 0.2s, background 0.2s;
+      display: block;
+      padding: 6px 12px;
+      color: #667085;
+      font-size: 0.82rem;
+      line-height: 1.4;
+      text-decoration: none;
+      border-radius: 6px;
+      overflow-wrap: anywhere;
+      transition: color 0.2s ease, background 0.2s ease;
     }
 
-    .sidebar a:hover {
-    color: #2563eb;
-    background: #f3f6ff;
+    .sidebar a:hover,
+    .sidebar a:focus-visible,
+    .sidebar a.active {
+      color: #0647f5;
+      outline: none;
     }
 
     .sidebar a.active {
-    color: #0647F5;
-    font-weight: 600;
-    }
-
-    .nav-group {
-      margin-bottom: 24px;
-    }
-
-    .nav-parent {
       font-weight: 700;
-      margin-bottom: 8px;
     }
 
-    .nav-children {
-    margin: 6px 0 0 10px;
-    padding-left: 10px;
+    .toc-list,
+    .toc-list ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
-    .nav-group.nested {
-    margin: 4px 0 4px 10px;
-    padding-left: 8px;
+    .toc-list ul {
+      margin-left: 12px;
+      padding-left: 8px;
+      border-left: 1px solid #edf0f5;
     }
 
-    /* Konten tengah */
+    .toc-list > li > a {
+      color: #344054;
+      /* font-weight: 600; */
+    }
+
+    .toc-list ul a {
+      color: #667085;
+      font-size: 0.78rem;
+    }
+
     .content {
       min-width: 0;
-      max-width: 850px;
       width: 100%;
+      color: #242936;
+      font-size: 1rem;
+      line-height: 1.75;
     }
 
-    .content section {
-      margin-bottom: 48px;
-      scroll-margin-top: 84px;
+    .content > #documentation {
+      min-width: 0;
+    }
+
+    .content h1,
+    .content h2,
+    .content h3 {
+      color: #111827;
+      line-height: 1.25;
+      scroll-margin-top: 88px;
     }
 
     .content h1 {
-      font-size: 36px;
-      line-height: 1.2;
+      margin: 0 0 28px;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      letter-spacing: -0.035em;
     }
 
     .content h2 {
-      margin-top: 36px;
-      font-size: 24px;
+      margin: 52px 0 18px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #edf0f5;
+      font-size: clamp(1.45rem, 2.5vw, 1.8rem);
+      letter-spacing: -0.02em;
     }
 
-    pre {
+    .content h3 {
+      margin: 32px 0 12px;
+      font-size: 1.18rem;
+    }
+
+    .content p,
+    .content ul,
+    .content ol {
+      margin: 0 0 18px;
+    }
+
+    .content a {
+      color: #0647f5;
+      text-underline-offset: 3px;
+    }
+
+    .content code {
+        background: #f0f2f4;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 13px;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        overflow-wrap: break-word;
+        word-break: break-all;
+    }
+    .content pre {
+        background: #f6f8fa;
+        border: 1px solid #e1e4e8;
+        border-radius: 6px;
+        padding: 16px;
+        overflow-x: auto;
+        margin: 0 0 16px;
+        line-height: 1.5;
+        max-width: 100%;
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+      font-size: 13px;
+    }
+
+    .content .code-blue {
+      color: #0969da !important;
+    }
+
+    .content .code-green {
+      color: #1a7f37;
+    }
+
+    .content blockquote {
+        border-left: 4px solid #dfe2e5; padding: 8px 16px; margin: 0 0 16px;
+        color: #586069; background: #f6f8fa; border-radius: 0 4px 4px 0;
+    }
+
+    .content blockquote p { margin: 4px 0; }
+
+    .content table {
+      display: block;
+      width: 100%;
       overflow-x: auto;
-      padding: 18px;
+      margin: 24px 0;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      letter-spacing: 0;
+    }
+
+    .content th {
+      min-width: 120px;
+      padding: 11px 14px;
+      color: #344054;
+      text-align: center;
+      vertical-align: top;
+      border: 1px solid #e4e7ec;
+      font-weight: 600;
+      width: 1%;
+    }
+
+    .content td {
+      min-width: 120px;
+      padding: 11px 14px;
+      color: #344054;
+      text-align: left;
+      vertical-align: top;
+      border: 1px solid #e4e7ec;
+      width: 1%;
+    }
+
+    .content thead {
+      background: #f2f4f7;
+    }
+
+    .content tbody tr:nth-child(even) {
+      background: #fbfcfd;
+    }
+
+    .content .bold {
+      font-weight: 700;
+    }
+
+    .mobile-toc {
+      display: none;
+      margin: 0 0 28px;
+      overflow: hidden;
+      background: #f8fafc;
+      border: 1px solid #e4e7ec;
       border-radius: 8px;
-      background: #f3f4f6;
-      font-size: 14px;
     }
 
-    /* Tabel */
-    table {
-    border-collapse: collapse;
-    border: 2px solid rgb(140 140 140);
-    font-family: sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
+    .mobile-toc summary {
+      cursor: pointer;
+      padding: 12px 14px;
+      color: #344054;
+      font-weight: 700;
+      list-style: none;
     }
 
-    caption {
-    caption-side: bottom;
-    padding: 10px;
-    font-weight: bold;
+    .mobile-toc summary::-webkit-details-marker {
+      display: none;
     }
 
-    thead,
-    tfoot {
-    background-color: rgb(228 240 245);
+    .mobile-toc summary::after {
+      float: right;
+      content: "⌄";
+      color: #667085;
+      transition: transform 0.2s ease;
     }
 
-    th,
-    td {
-    border: 1px solid rgb(160 160 160);
-    padding: 8px 10px;
+    .mobile-toc[open] summary::after {
+      transform: rotate(180deg);
     }
 
-    td:last-of-type {
-    text-align: center;
+    .mobile-toc nav {
+      padding: 8px 14px 14px;
+      border-top: 1px solid #e4e7ec;
     }
 
-    tbody > tr:nth-of-type(even) {
-    background-color: rgb(237 238 242);
-    }
-
-    tfoot th {
-    text-align: right;
-    }
-
-    tfoot td {
-    font-weight: bold;
-    }
-
-    /* Tablet */
-    @media (max-width: 768px) {
-      .layout {
-        grid-template-columns: 210px minmax(0, 1fr);
-        gap: 24px;
-        padding: 20px;
-      }
-    }
-
-    /* Mobile */
-    @media (max-width: 600px) {
+    @media (max-width: 996px) {
       .layout {
         display: block;
-        padding: 20px;
+        max-width: 900px;
+        padding: 32px 24px 56px;
       }
 
       .sidebar {
         display: none;
       }
 
-      .content h1 {
-        font-size: 30px;
+      .mobile-toc {
+        display: block;
       }
     }
-  </style>
-</head>
-
-<body>
-  <header class="topbar">
-    <strong>Haobusiness</strong>
-  </header>
-
-  <div class="layout">
-    <main class="content">
-      <h1>Haobusiness API Integration</h1>
-      <section id="introduction">
-        <h1>Introduction</h1>
-        <p>
-          Selamat datang di dokumentasi API.
-          Pelajari cara mengintegrasikan layanan
-          ke dalam aplikasi kamu.
-        </p>
-      </section>
-
-      <section id="installation">
-        <h2>Installation</h2>
-        <p>Instal SDK melalui package manager.</p>
-        <pre><code class="language-bash">npm install my-api-sdk</code></pre>
-      </section>
-
-      <section id="quick-start">
-        <h2>Quick Start</h2>
-        <p>Contoh permintaan API sederhana.</p>
-        <pre><code class="language-javascript">const response = await fetch("/api/v1/products");
-                   const data = await response.json();
-        </code></pre>
-      </section>
-
-      <section id="authentication">
-        <h2>Authentication</h2>
-      </section>
-
-      <section id="api-keys">
-        <h2>API Keys</h2>
-        <p>
-            API key adalah identitas unik yang digunakan untuk
-            mengautentikasi permintaan ke API. Sertakan API key
-            pada setiap permintaan untuk mengidentifikasi aplikasi
-            dan memverifikasi hak akses terhadap sumber daya
-            yang tersedia.
-        </p>
-
-        <p>
-            Jaga kerahasiaan API key Anda. Hindari menempatkan
-            key rahasia di kode frontend, repositori publik, atau
-            aplikasi yang dapat diakses langsung oleh pengguna.
-            Simpan kredensial sensitif di server dan segera ganti
-            API key jika diketahui telah bocor.
-        </p>
-      </section>
-
-      <section id="bearer-token">
-        <h2>Bearer Token</h2>
-        <p>
-            Bearer token adalah kredensial akses yang dikirim
-            melalui header Authorization pada permintaan HTTP.
-            API akan memvalidasi token untuk menentukan apakah
-            permintaan telah terautentikasi dan diizinkan
-            mengakses sumber daya yang diminta.
-        </p>
-
-        <p>
-            Gunakan skema autentikasi Bearer saat mengirim token.
-            Selalu gunakan HTTPS untuk melindungi kredensial
-            selama transmisi. Hindari mencatat token ke dalam
-            log atau membagikannya kepada pihak yang tidak
-            berwenang.
-        </p>
-
-        <pre><code class="language-javascript">Authorization: Bearer TOKEN_AKSES_ANDA</code></pre>
-      </section>
-
-      <section id="endpoints">
-        <h2>Endpoints</h2>
-        <h3>GET /api/v1/products</h3>
-        <p>Mengambil daftar produk.</p>
-        <pre><code class="language-javascript">fetch("/api/v1/products", {
-    method: "GET",
-    headers: {
-        "Authorization": "Bearer YOUR_API_KEY"
+    
+    @media (max-width: 600px) {
+      .layout { padding: 24px 16px 48px; }
+      .content { font-size: 0.96rem; }
+      .content h1 { font-size: 2rem; }
+      .content h2 { margin-top: 40px; }
+      .content pre { padding: 16px; }
     }
-})
-.then(response => response.json())
-.then(data => {
-    console.log(data);
-});
+  </style>
+
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header class="topbar"><strong>Haobusiness</strong></header>
+
+  <!-- Main Content -->
+  <div class="layout">
+    <main class="content" aria-live="polite">
+      <h1>Haobusiness API</h1>
+
+      <div id="documentation">
+
+        <h2>API Endpoint</h2>
+        <table><thead><tr>
+        <th>Environment</th>
+        <th>Base URL</th>
+        </tr></thead><tbody>
+
+        <tr>
+        <td>Staging</td>
+        <td><span class="bold">https://haobusiness.id/partner/dev</span></td>
+        </tr>
+
+        </tbody></table>
+
+        <h2>Endpoint path</h2>
+        <table><thead><tr>
+        <th>Endpoint</th>
+        <th>Path</th>
+        </tr></thead><tbody>
+
+        <tr>
+        <td>Topup</td>
+        <td>/topup</td>
+        </tr>
+
+        <tr>
+        <td>Payment</td>
+        <td>/payment</td>
+        </tr>
+
+        <tr>
+        <td>Inquery</td>
+        <td>/inquery</td>
+        </tr>
+
+        <tr>
+        <td>Balance</td>
+        <td>/balance</td>
+        </tr>
+
+        <tr>
+        <td>Check Status</td>
+        <td>/checkstatus</td>
+        </tr>
+
+        <tr>
+        <td>Produk List</td>
+        <td>/getproduct</td>
+        </tr>
+        </tbody></table>
+        
+        <h2>Header</h2>
+        <p>Setiap request harus menyertakan header berikut:</p>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Value</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>Content-Type</td>
+        <td>application/json</td>
+        </tr>
+        <tr>
+        <td>signature</td>
+        <td>Signature</td>
+        </tr>
+        <tr>
+        <td>timestamp</td>
+        <td>Timestamp</td>
+        </tr>
+        </tbody></table>
+        <p>Nilai <code>Timestamp</code> menggunakan Unix timestamp dalam satuan detik. <code>Timestamp</code> digunakan sebagai batas waktu transaksi selama 5 menit apabila transaksi belum pernah diterima atau diproses sebelumnya.</p>
+        <p>Transaksi tidak dianggap expire berdasarkan <code>timestamp</code> apabila transaksi tersebut sudah pernah diterima dan dikirim ulang menggunakan payload serta <code>timestamp</code> yang sama.</p>
+        <p>Contoh nilai <code>Timestamp</code>:</p>
+        <pre><code class="code-blue">1792612847</code></pre>
+
+        <p>Nilai <code>signature</code> dibuat menggunakan metode <code>HmacSha256</code> dengan encoding Hex.</p>
+        <p>Proses pembentukan signature:</p>
+        <pre><code class="language-">partner_id = 'PARTNER1'
+reff_id = '12345'
+product = 'S5'
+customer_id = '081212312368'
+req_price = '0'
+method = 'POST'
+path = 'topup'
+timestamp = 1792612847
+
+payloadSign = partner_id + reff_id + product + customer_id + req_price
+canonicalRequest = method:path:payloadSign:timestamp
+signature = HmacSha256(canonicalRequest, secret)
+</code></pre>
+
+        <p>Contoh hasil:</p>
+        <pre><code>payloadSign = PARTNER112345S50812123123680
+canonicalRequest = POST:topup:PARTNER112345S50812123123680:1792612847
+signature = db1ea3195005e7d32bb594cf887c680c0d5fe0c97ab9ea650e876894bd28d734
         </code></pre>
-      </section>
 
-      <section id="errors">
-        <h2>Error Handling</h2>
-        <p>
-          Dokumentasikan HTTP status code,
-          kode error, dan cara penanganannya.
-        </p>
-      </section>
+        <h2>Callback</h2>
+        <p>Jika request menyertakan parameter <code>url_callback</code> sistem akan mengirimkan final status transaksi ke URL tersebut ketika transaksi berhasil atau gagal.</p>
+        <p>Parameter <code>url_callback</code> hanya tersedia untuk endpoint <code>topup</code> dan <code>payment</code>. Gunakan endpoint <code>checkstatus</code> sebagai alternatif untuk mendapatkan final status transaksi apabila callback tidak diterima.</p>
+        
+
+        <h2>Topup</h2>
+        
+        <p>Endpoint <code>topup</code> digunakan untuk transaksi produk selain payment PPOB, seperti pulsa, paket data, dan direct pln token (tanpa inquery).</p>
+        
+
+        <h2>Inquery</h2>
+        <p>Endpoint <code>inquery</code> digunakan untuk memperoleh informasi tagihan produk PPOB sebelum transaksi payment dilakukan.</p>
+        
+        <h2>Payment</h2>
+        <p>Endpoint <code>payment</code> digunakan untuk melakukan pembayaran produk PPOB setelah proses <code>inquery</code> berhasil dilakukan.</p>
+
+        <h2>Check Status</h2>
+        <p>Endpoint <code>checkstatus</code> digunakan untuk memperoleh final status transaksi apabila callback tidak diterima atau transaksi masih berstatus pending.</p>
+
+        <h2>Topup</h2>
+        <p>Untuk endpoint <code>topup</code>, nilai <code>PayloadSign</code> dibentuk menggunakan formula berikut:</p>
+
+        <pre><code>PayloadSign = partner_id + reff_id + product + customer_id + req_price</code></pre>
+
+        <p>Parameter <code>req_price</code> digunakan untuk mengunci harga transaksi. Sistem akan membandingkan nilai <code>req_price</code> dengan harga pada sistem biller. Jika nilainya berbeda, transaksi akan ditolak.</p>
+        
+        <p>Gunakan nilai <code>0</code> pada <code>req_price</code> untuk memproses transaksi tanpa validasi harga.</p>
+
+
+        <h3>Request</h3>
+        <table><thead><tr>
+        <th>key</th>
+        <th>description</th>
+        <th>required</th>
+        <th>type</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>reff_id</td>
+        <td>partner refference id</td>
+        <td>yes</td>
+        <td>string(max 15)</td>
+        </tr>
+        <tr>
+        <td>product</td>
+        <td>Product Code</td>
+        <td>yes</td>
+        <td>string</td>
+        </tr>
+        <tr>
+        <td>customer_id</td>
+        <td>Customer ID/phone number</td>
+        <td>yes</td>
+        <td>string</td>
+        </tr>
+        <tr>
+        <td>url_callback</td>
+        <td>Callback URL</td>
+        <td>no</td>
+        <td>string</td>
+        </tr>
+        <tr>
+        <td>req_price</td>
+        <td>Request Price</td>
+        <td>yes</td>
+        <td>string</td>
+        </tr>
+        </tbody></table>
+        <h3>Response</h3>
+        <table><thead><tr>
+        <th>key</th>
+        <th>description</th>
+        <th>required</th>
+        <th>type</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>respCode</td>
+        <td>Response Code</td>
+        <td>yes</td>
+        <td>string</td>
+        </tr>
+        <tr>
+        <td>respMessage</td>
+        <td>Response Message</td>
+        <td>yes</td>
+        <td>string</td>
+        </tr>
+        <tr>
+        <td>timestamp</td>
+        <td>timestamp of response</td>
+        <td>yes</td>
+        <td>string</td>
+        </tr>
+        <tr>
+        <td>data</td>
+        <td>Data</td>
+        <td>yes</td>
+        <td>object</td>
+        </tr>
+        </tbody></table>
+        <h3>Data Object</h3>
+        <table><thead><tr>
+        <th>key</th>
+        <th>description</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>req_date</td>
+        <td>Request Date</td>
+        </tr>
+        <tr>
+        <td>reff_id</td>
+        <td>partner refference id</td>
+        </tr>
+        <tr>
+        <td>product</td>
+        <td>Product Code</td>
+        </tr>
+        <tr>
+        <td>customer_id</td>
+        <td>Customer ID/phone number</td>
+        </tr>
+        <tr>
+        <td>req_price</td>
+        <td>Request Price</td>
+        </tr>
+        <tr>
+        <td>biller_reff</td>
+        <td>Biller Refference ID</td>
+        </tr>
+        <tr>
+        <td>sn</td>
+        <td>SN</td>
+        </tr>
+        <tr>
+        <td>price</td>
+        <td>Price</td>
+        </tr>
+        <tr>
+        <td>message</td>
+        <td>Message</td>
+        </tr>
+        <tr>
+        <td>saldo</td>
+        <td>Balance</td>
+        </tr>
+        </tbody></table>
+      </div>
     </main>
-
     <aside class="sidebar">
-    <nav aria-label="Dokumentasi API">
-
-        <div class="nav-children">
-            <a href="#introduction">Introduction</a>
-            <a href="#installation">Installation</a>
-        </div>
-
-        <div class="nav-children">
-            <a href="#authentication">Authentication</a>
-
-            <div class="nav-group nested">
-            <a href="#api-keys">API Keys</a>
-            <a href="#bearer-token">Bearer Token</a>
-            </div>
-
-            <a href="#endpoints">Endpoints</a>
-            <a href="#errors">Error Handling</a>
-        </div>
-    </nav>
+      <nav aria-label="Dokumentasi API" id="sidebar-navigation"></nav>
     </aside>
-
   </div>
+
+  <!-- Syntax Highlighting -->
+  <!-- Documentation Initialization -->
+  <script>
+    const documentation = document.getElementById("documentation");
+    const sidebarNavigation = document.getElementById("sidebar-navigation");
+    const headings = [...documentation.querySelectorAll("h1, h2, h3")];
+
+    // Generate unique IDs for headings to use as anchor links
+    function createHeadingId(text, usedIds) {
+      const baseId = text.toLowerCase().trim()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-") || "section";
+      let id = baseId;
+      let suffix = 2;
+      while (usedIds.has(id)) id = `${baseId}-${suffix++}`;
+      usedIds.add(id);
+      return id;
+    }
+
+    // Build the sidebar navigation based on headings
+    function buildSidebar(target) {
+      const links = [];
+      const root = document.createElement("ul");
+      root.className = "toc-list";
+      target.replaceChildren(root);
+
+      let currentSection;
+
+      headings.forEach(heading => {
+        const item = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = `#${heading.id}`;
+        link.textContent = heading.textContent.trim();
+        link.title = heading.textContent.trim();
+        item.appendChild(link);
+        links.push(link);
+
+        if (heading.tagName === "H1" || heading.tagName === "H2") {
+          root.appendChild(item);
+          currentSection = item;
+          return;
+        }
+
+        if (!currentSection) {
+          root.appendChild(item);
+          return;
+        }
+
+        let nestedList = currentSection.querySelector(":scope > ul");
+        if (!nestedList) {
+          nestedList = document.createElement("ul");
+          currentSection.appendChild(nestedList);
+        }
+        nestedList.appendChild(item);
+      });
+
+      return links;
+    }
+
+    // Initialize IntersectionObserver to highlight the active heading in the sidebar
+    function initializeSectionObserver(links) {
+      if (!("IntersectionObserver" in window)) return;
+      const linksById = new Map();
+      links.forEach(link => {
+        const id = link.getAttribute("href").slice(1);
+        if (!linksById.has(id)) linksById.set(id, []);
+        linksById.get(id).push(link);
+      });
+
+      function setActiveHeading(id) {
+        links.forEach(link => {
+          link.classList.remove("active");
+          link.removeAttribute("aria-current");
+        });
+        (linksById.get(id) || []).forEach(link => {
+          link.classList.add("active");
+          link.setAttribute("aria-current", "location");
+        });
+      }
+
+      const observer = new IntersectionObserver(entries => {
+        const visibleSection = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (!visibleSection) return;
+        setActiveHeading(visibleSection.target.id);
+      }, { root: null, rootMargin: "-15% 0px -70% 0px", threshold: 0 });
+      headings.forEach(section => observer.observe(section));
+
+      const initialHeading = headings.find(heading => heading.getBoundingClientRect().top >= 88);
+      if (initialHeading) setActiveHeading(initialHeading.id);
+    }
+
+    // Initialize the mobile table of contents
+    function initializeMobileToc() {
+      const mobileToc = document.createElement("details");
+      mobileToc.className = "mobile-toc";
+      const summary = document.createElement("summary");
+      summary.textContent = "On this page";
+      const nav = document.createElement("nav");
+      nav.setAttribute("aria-label", "On this page");
+      mobileToc.append(summary, nav);
+      documentation.prepend(mobileToc);
+      const mobileLinks = buildSidebar(nav);
+
+      nav.addEventListener("click", event => {
+        if (event.target.closest("a")) mobileToc.removeAttribute("open");
+      });
+
+      return mobileLinks;
+    }
+
+    const usedIds = new Set();
+    headings.forEach(heading => {
+      heading.id = createHeadingId(heading.textContent, usedIds);
+    });
+
+    const sidebarLinks = buildSidebar(sidebarNavigation);
+    const mobileLinks = initializeMobileToc();
+
+    documentation.querySelectorAll("pre code").forEach(function(code) {
+      hljs.highlightElement(code);
+    });
+
+    initializeSectionObserver([...sidebarLinks, ...mobileLinks]);
+  </script>
+
 </body>
 </html>
-
-<!-- Intersection Observer (Sidebar Highlighter) -->
-<script>
-
-    const sections = document.querySelectorAll(
-    ".content section[id]"
-    );
-
-    const sidebarLinks = document.querySelectorAll(
-    ".sidebar a[href^='#']"
-    );
-
-    const linkById = new Map(
-    [...sidebarLinks].map(link => [
-        link.getAttribute("href").slice(1),
-        link
-    ])
-    );
-
-    const observer = new IntersectionObserver(
-    entries => {
-        entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-
-        sidebarLinks.forEach(link => {
-            link.classList.remove("active");
-            link.removeAttribute("aria-current");
-        });
-
-        const activeLink = linkById.get(entry.target.id);
-
-        if (activeLink) {
-            activeLink.classList.add("active");
-            activeLink.setAttribute("aria-current", "location");
-        }
-        });
-    },
-    {
-        root: null,
-        rootMargin: "-15% 0px -70% 0px",
-        threshold: 0
-    }
-    );
-
-    sections.forEach(section => observer.observe(section));
-
-</script>
-
-<!-- Prism.js (Code Prettify) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-bash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-javascript.min.js"></script>
