@@ -433,8 +433,7 @@
                 <ul>
         <li class="anchor-heading">Untuk menggunakan callback pada endpoint <code>topup</code> bisa lihat pada bagian <bold class="bold">Request & Response Example Topup</bold> <a href="#topup-3" class="heading-anchor" aria-label="Link ke Signature" title="Direct Link ke Topup">#</a></li>
 
-        <li class="anchor-heading">Untuk menggunakan callback pada endpoint <code>payment</code> bisa lihat pada bagian <bold class="bold">Request & Response Example Payment</bold> <a href="#payment-3" class="heading-anchor" aria-label="Link ke Signature" title="Direct Link ke Payment">#</a></li>
-
+        <!-- <li class="anchor-heading">Untuk menggunakan callback pada endpoint <code>payment</code> bisa lihat pada bagian <bold class="bold">Request & Response Example Payment</bold> <a href="#payment-3" class="heading-anchor" aria-label="Link ke Signature" title="Direct Link ke Payment">#</a></li> -->
 
         </ul>
 
@@ -838,7 +837,7 @@ function CreateHMAC(canonicalRequest, secret) {
 
         <tr>
         <td>timestamp</td>
-        <td>datetime ISO 8601</td>
+        <td>Timestamp of Response</td>
         <td>String</td>
         </tr>
 
@@ -927,7 +926,7 @@ function CreateHMAC(canonicalRequest, secret) {
         </tr></thead><tbody>
         <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
         <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
-        <tr><td>timestamp</td><td>datetime ISO 8601</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>Timestamp of Response</td><td>String</td></tr>
         <tr><td>data</td><td>Data</td><td>Object</td></tr>
         </tbody></table>
 
@@ -974,7 +973,7 @@ function CreateHMAC(canonicalRequest, secret) {
         </tr></thead><tbody>
         <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
         <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
-        <tr><td>timestamp</td><td>datetime ISO 8601</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>Timestamp of Response</td><td>String</td></tr>
         <tr><td>data</td><td>Data</td><td>Object</td></tr>
         </tbody></table>
 
@@ -1010,7 +1009,7 @@ function CreateHMAC(canonicalRequest, secret) {
         </tr></thead><tbody>
         <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
         <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
-        <tr><td>timestamp</td><td>datetime ISO 8601</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>Timestamp of Response</td><td>String</td></tr>
         <tr><td>data</td><td>Data</td><td>Object</td></tr>
         </tbody></table>
         
@@ -1021,7 +1020,7 @@ function CreateHMAC(canonicalRequest, secret) {
           <th>Type</th>
         </tr></thead><tbody>
           <tr><td>saldo</td><td>Balance</td><td>Number</td></tr>
-          <tr><td>update_at</td><td>Last Update datetime ISO 8601</td><td>String</td></tr>
+          <tr><td>update_at</td><td>Last Update Timestamp</td><td>String</td></tr>
         </tbody></table>
 
         <h3>Check Status</h3>
@@ -1047,7 +1046,7 @@ function CreateHMAC(canonicalRequest, secret) {
         </tr></thead><tbody>
         <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
         <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
-        <tr><td>timestamp</td><td>datetime ISO 8601</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>Timestamp of Response</td><td>String</td></tr>
         <tr><td>data</td><td>Data</td><td>Object</td></tr>
         </tbody></table>
 
@@ -1349,22 +1348,25 @@ timestamp = 1790202612</code></pre>
         <pre><code class="language-">signature = HmacSha256(canonicalRequest, secret)</code></pre>
 
         <p>Contoh Request <bold class="bold">Tanpa Callback</bold>:</p>
-        <pre><code>curl -X POST "https://haobusiness.id/partner/dev/payment" \
+        <pre><code>Coming Soon</code></pre>
+        <!-- <pre><code>curl -X POST "https://haobusiness.id/partner/dev/payment" \
   -H "Content-Type: application/json" \
   -H "signature: YOUR_GENERATED_SIGNATURE" \
   -H "timestamp: 1790202612" \
-  -d '{"reff_id":"233333","product":"PLNPREPAID","customer_id":"32157252722","total_amount":22500}'</code></pre>
+  -d '{"reff_id":"233333","product":"PLNPREPAID","customer_id":"32157252722","total_amount":22500}'</code></pre> -->
 
         <p>Contoh Request <bold class="bold">Dengan Callback</bold>:</p>
-        <pre><code>curl -X POST "https://haobusiness.id/partner/dev/payment" \
+        <pre><code>Coming Soon</code></pre>
+        <!-- <pre><code>curl -X POST "https://haobusiness.id/partner/dev/payment" \
   -H "Content-Type: application/json" \
   -H "signature: YOUR_GENERATED_SIGNATURE" \
   -H "timestamp: 1790202612" \
-  -d '{"reff_id":"233333","product":"PLNPREPAID","customer_id":"32157252722","total_amount":22500,"url_callback":"https://domainanda.com/webhook"}'</code></pre>
+  -d '{"reff_id":"233333","product":"PLNPREPAID","customer_id":"32157252722","total_amount":22500,"url_callback":"https://domainanda.com/webhook"}'</code></pre> -->
 
         <h4>Response</h4>
         <p>Contoh Response:</p>
-        <pre><code class="language-json">{
+        <pre><code>Coming Soon</code></pre>
+        <!-- <pre><code class="language-json">{
   "respCode": "00",
   "respMessage": "SUKSES",
   "timestamp": "2026-10-24T05:30:12.50+07:00",
@@ -1386,7 +1388,7 @@ timestamp = 1790202612</code></pre>
     "trans_date": "2026-10-24T05:30:10.50+07:00",
     "saldo": 20000
   }
-}</pre></code>
+}</pre></code> -->
 
         <h3>Balance </h3>
         <h4>Endpoint Path</h4>
