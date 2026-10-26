@@ -89,12 +89,6 @@
       padding-left: 8px;
     }
 
-    .toc-list > li > ul > li > ul {
-      margin-left: 12px;
-      padding-left: 8px;
-      border-left-color: #f2f4f7;
-    }
-
     .toc-list > li > a {
       color: #344054;
     }
@@ -140,6 +134,11 @@
     .content h3 {
       margin: 32px 0 12px;
       font-size: clamp(1.45rem, 2.5vw, 1.75rem);
+    }
+
+    .content h4 {
+      margin: 32px 0 12px;
+      font-size: clamp(1.25rem, 2.5vw, 1.25rem);
     }
 
     .content p,
@@ -351,25 +350,26 @@
         </tr></thead><tbody>
 
         <tr>
-        <td>Produk List</td>
+        <td>Product List</td>
         <td>Mendapatkan daftar produk digital yang tersedia</td>
         <td>/getproduct</td>
         <td>GET</td>
         </tr>
-
-        <tr>
-        <td>Inquery</td>
-        <td>Memeriksa tagihan PPOB sebelum pembayaran</td>
-        <td>/inquery</td>
-        <td>POST</td>
-        </tr>
-
+        
         <tr>
         <td>Topup</td>
         <td>Melakukan transaksi produk digital prabayar</td>
         <td>/topup</td>
         <td>POST</td>
         </tr>
+
+        <tr>
+        <td>Inquery</td>
+        <td>Memeriksa rincian tagihan PPOB pelanggan sebelum pembayaran</td>
+        <td>/inquery</td>
+        <td>POST</td>
+        </tr>
+
 
         <tr>
         <td>Payment</td>
@@ -387,7 +387,7 @@
 
         <tr>
         <td>Check Status</td>
-        <td>Memeriksa status akhir transaksi</td>
+        <td>Memeriksa final status transaksi</td>
         <td>/checkstatus</td>
         <td>GET</td>
         </tr>
@@ -397,49 +397,49 @@
 
         <p>Berikut adalah layanan yang tersedia melalui HAObusiness API:</p>
 
-        <h3>Produk List</h3>
-        <p>Path <code>/getproduct</code> digunakan untuk mendapatkan daftar produk digital yang tersedia.</p>
+        <h3>Product List</h3>
+        <p>Product List merupakan layanan untuk mendapatkan daftar produk digital yang tersedia.</p>
+        
+        <h3>Topup</h3>
+        <p>Topup merupakan jenis transaksi yang <bold class="bold">tidak wajib melalui proses inquery.</bold> Jenis transaksi ini digunakan untuk melakukan transaksi produk digital prabayar seperti pulsa, paket data, dan direct PLN token.</p>
+        <p>Untuk produk <bold class="bold">PLN TOKEN</bold> dapat diproses melalui layanan ini menggunakan kode produk yang telah ditentukan.</p>
 
         <h3>Inquery</h3>
-        <p>Path <code>/inquery</code> digunakan untuk memperoleh informasi tagihan produk PPOB sebelum transaksi payment dilakukan.</p>
-
-        <h3>Topup</h3>
-        <p>Path <code>/topup</code> digunakan untuk transaksi produk selain payment PPOB, seperti pulsa, paket data, dan direct pln token (tanpa inquery).</p>
-
-        <h4>Request Parameter</h4>
-
-        <p>Untuk path <code>/topup</code>, dapat memerhatikan beberapa hal berikut:</p>
-
-        <pre><code>PayloadSign = partner_id + reff_id + product + customer_id + req_price</code></pre>
-
-        <ul>
-        <li>Parameter <code>req_price</code> digunakan untuk mengunci harga transaksi. Sistem akan membandingkan nilai <code>req_price</code> dengan harga pada sistem biller. Jika nilainya berbeda, transaksi akan ditolak.</li>
-        <li>Gunakan nilai <code>0</code> pada <code>req_price</code> untuk memproses transaksi tanpa validasi harga.</li>
-        </ul>
+        <p>Inquery merupakan layanan yang digunakan untuk memperoleh rincian tagihan produk PPOB berdasarkan ID pelanggan atau nomor akun tertentu sebelum melakukan pembayaran.</p>
+        <p>Untuk produk <bold class="bold">PLN TOKEN</bold>, pada layanan ini dapat digunakan untuk memeriksa data pelanggan dengan menggunakan kode produk tetap <bold class="bold">PLNPREPAID</bold>.</p>
 
         <h3>Payment</h3>
-        <p>Path <code>/payment</code> digunakan untuk melakukan pembayaran produk PPOB setelah proses <code>inquery</code> berhasil dilakukan.</p>
+        <p>Payment merupakan jenis transaksi yang <bold class="bold">wajib melalui proses inquery</bold> terlebih dahulu sebelum permintaan pembayaran dilakukan. Jenis transaksi ini digunakan untuk membayar tagihan produk PPOB.</p>
 
         <h3>Balance</h3>
-        <p>Path <code>/balance</code> digunakan untuk memeriksa saldo akun mitra.</p>
-
-        <h3>Check Status</h3>
-        <p>Path <code>/checkstatus</code> digunakan untuk memperoleh final status transaksi apabila callback tidak diterima atau transaksi masih berstatus pending.</p>
+        <p>Balance merupakan layanan yang digunakan untuk memeriksa saldo akun mitra.</p>
 
         <h3>Callback</h3>
         <p>Jika request menyertakan parameter <code>url_callback</code> sistem akan mengirimkan final status transaksi ke URL tersebut ketika transaksi berhasil atau gagal. Mitra harus menyediakan endpoint <code>url_callback</code> untuk menerima callback tersebut.</p>
 
         <ul>
         <li class="anchor-heading">Parameter <code>url_callback</code> hanya tersedia untuk endpoint <code>topup</code> dan <code>payment</code>. 
-        <li>Gunakan endpoint <code>checkstatus</code> sebagai alternatif untuk mendapatkan final status transaksi apabila callback tidak diterima.</li>
+        <li>Gunakan endpoint <code>Check Status</code> sebagai alternatif untuk mendapatkan final status transaksi apabila callback tidak diterima.</li>
         </ul>
 
         <p>Contoh format callback:</p>
 
         <ul>
-          <li>[POST] https://{ip-or-domain}/...</li>
-          <li>[POST] http://{ip-or-domain}/...</li>
+          <li>https://{ip-or-domain}/...</li>
+          <li>http://{ip-or-domain}/...</li>
         </ul>
+
+        <p>Cara penggunaan callback:</p>
+                <ul>
+        <li class="anchor-heading">Untuk menggunakan callback pada endpoint <code>topup</code> bisa lihat pada bagian <bold class="bold">Request & Response Example Topup</bold> <a href="#topup-3" class="heading-anchor" aria-label="Link ke Signature" title="Direct Link ke Topup">#</a></li>
+
+        <li class="anchor-heading">Untuk menggunakan callback pada endpoint <code>payment</code> bisa lihat pada bagian <bold class="bold">Request & Response Example Payment</bold> <a href="#payment-3" class="heading-anchor" aria-label="Link ke Signature" title="Direct Link ke Payment">#</a></li>
+
+
+        </ul>
+
+        <h3>Check Status</h3>
+        <p>Check Status merupakan layanan yang digunakan untuk memeriksa final status transaksi apabila callback tidak diterima atau transaksi masih berstatus pending.</p>
 
         <h2>HTTP Request Format</h2>
         <h3>Content Type</h3>
@@ -477,7 +477,7 @@
 
         <h3>Payload Sign</h3>
 
-        <p>Payload Sign diperlukan sebagai salah satu key dalam pembuatan <code>Canonical Request</code>. Payload Sign didapatkan dengan menggabungkan nilai <bold class="bold">partner_id, reff_id, product, customer_id, dan req_price</bold> secara berurutan tanpa pemisah.</p>
+        <p>Payload Sign diperlukan sebagai salah satu key dalam pembuatan <code>Canonical Request</code>.</p>
 
         <pre><code>payloadSign = partner_id + reff_id + product + customer_id + req_price</code></pre>
 
@@ -580,7 +580,7 @@ timestamp = 1792612847</code></pre>
 
         <h3>Signature</h3>
 
-        <p>Signature dihasilkan menggunakan algoritma <code>HMAC-SHA256</code> dengan <code>secret</code> sebagai kunci dan <code>canonicalRequest</code> sebagai data input. Hasil perhitungan kemudian dikonversi ke format <code>Hex</code>.</p>
+        <p>Signature dihasilkan menggunakan algoritma <code>HMAC-SHA256</code> dengan memasukkan nilai <code>canonicalRequest</code> dan <code>secret</code>. Hasil perhitungan kemudian dikonversi ke format <code>Hex</code>.</p>
 
         <pre><code>signature = HmacSha256(canonicalRequest, secret)
 </code></pre>
@@ -640,8 +640,8 @@ function CreateHMAC(canonicalRequest, secret) {
 
         <h3>Timestamp</h3>
 
-        <p>Nilai <code>Timestamp</code> menggunakan Unix timestamp dalam satuan detik. <code>Timestamp</code> digunakan sebagai batas waktu transaksi selama 5 menit apabila transaksi belum pernah diterima atau diproses sebelumnya.</p>
-        <p>Transaksi tidak dianggap expire berdasarkan <code>timestamp</code> apabila transaksi tersebut sudah pernah diterima dan dikirim ulang menggunakan payload serta <code>timestamp</code> yang sama.</p>
+        <p>Nilai <code>Timestamp</code> menggunakan Unix timestamp dalam satuan detik. <code>Timestamp</code> digunakan untuk menentukan masa berlaku transaksi selama 5 menit apabila transaksi belum pernah diterima atau diproses sebelumnya.</p>
+        <p>Nilai <code>timestamp</code> diabaikan apabila transaksi dengan payload dan timestamp yang sama telah diterima sebelumnya.</p>
 
         <p>Contoh nilai <code>Timestamp</code>:</p>
         <pre><code class="code-blue">1792612847</code></pre>
@@ -695,35 +695,30 @@ function CreateHMAC(canonicalRequest, secret) {
         <table><thead><tr>
         <th>Key</th>
         <th>Description</th>
-        <th>Required</th>
         <th>Type</th>
         </tr></thead><tbody>
 
         <tr>
         <td>respCode</td>
         <td>Response Code</td>
-        <td>yes</td>
         <td>String</td>
         </tr>
 
         <tr>
         <td>respMessage</td>
         <td>Response Message</td>
-        <td>yes</td>
         <td>String</td>
         </tr>
 
         <tr>
         <td>timestamp</td>
-        <td>Timestamp of response</td>
-        <td>yes</td>
+        <td>Timestamp of Response</td>
         <td>String</td>
         </tr>
 
         <tr>
         <td>data</td>
         <td>Data</td>
-        <td>yes</td>
         <td>Object</td>
         </tr>
         
@@ -780,7 +775,13 @@ function CreateHMAC(canonicalRequest, secret) {
         <tr>
         <td>price</td>
         <td>Price</td>
-        <td>String</td>
+        <td>Number</td>
+        </tr>
+
+        <tr>
+        <td>details</td>
+        <td>Details Biller</td>
+        <td>Object</td>
         </tr>
 
         <tr>
@@ -790,14 +791,708 @@ function CreateHMAC(canonicalRequest, secret) {
         </tr>
 
         <tr>
+        <td>trans_date</td>
+        <td>Transaction Date</td>
+        <td>String</td>
+        </tr>
+
+        <tr>
         <td>saldo</td>
         <td>Balance</td>
+        <td>Number</td>
+        </tr>
+
+        <tr>
+        <td>update_at</td>
+        <td>Last Balance Update Time</td>
         <td>String</td>
         </tr>
 
         </tbody></table>
 
-      </div>
+        <h2>HTTP Request & Response</h2>
+
+        <h3>Product List</h3>
+        <h4>Request</h4>
+        <p>Endpoint ini tidak memerlukan body parameter apa pun. Cukup kirimkan permintaan GET untuk mendapatkan seluruh daftar produk yang tersedia.</p>
+
+        <h4>Response</h4>
+
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+
+        <tr>
+        <td>respCode</td>
+        <td>Response Code</td>
+        <td>String</td>
+        </tr>
+
+        <tr>
+        <td>respMessage</td>
+        <td>Response Message</td>
+        <td>String</td>
+        </tr>
+
+        <tr>
+        <td>timestamp</td>
+        <td>datetime ISO 8601</td>
+        <td>String</td>
+        </tr>
+
+        <tr>
+        <td>total</td>
+        <td>Total Products</td>
+        <td>Number</td>
+        </tr>
+
+        <tr>
+        <td>data</td>
+        <td>Data</td>
+        <td>Array</td>
+        </tr>
+        
+        </tbody></table>
+
+        <h3>Topup</h3>
+
+        <h4>Request</h4>
+
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Required</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>reff_id</td><td>Partner Reference ID</td><td>Yes</td><td>String (max 15)</td></tr>
+        <tr><td>product</td><td>Product Code</td><td>Yes</td><td>String</td></tr>
+        <tr><td>customer_id</td><td>Customer ID/Phone Number</td><td>Yes</td><td>String</td></tr>
+        <tr><td>url_callback</td><td>Callback URL</td><td>No</td><td>String</td></tr>
+        <tr><td>req_price</td><td>Request Price</td><td>Yes</td><td>String</td></tr>
+        </tbody></table>
+
+        <h4>Response</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
+        <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>Timestamp of Response</td><td>String</td></tr>
+        <tr><td>data</td><td>Data</td><td>Object</td></tr>
+        </tbody></table>
+
+        <h4>Response Data</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>req_date</td><td>Request Date</td><td>String</td></tr>
+        <tr><td>reff_id</td><td>Partner Reference ID</td><td>String</td></tr>
+        <tr><td>product</td><td>Product Code</td><td>String</td></tr>
+        <tr><td>customer_id</td><td>Customer ID/Phone Number</td><td>String</td></tr>
+        <tr><td>req_price</td><td>Request Price</td><td>Number</td></tr>
+        <tr><td>biller_reff</td><td>Biller Reference ID</td><td>String</td></tr>
+        <tr><td>sn</td><td>SN</td><td>String</td></tr>
+        <tr><td>price</td><td>Price</td><td>Number</td></tr>
+        <tr><td>message</td><td>Message</td><td>String</td></tr>
+        <tr><td>trans_date</td><td>Transaction Date</td><td>String</td></tr>
+        <tr><td>saldo</td><td>Balance</td><td>Number</td></tr>
+        </tbody></table>
+
+        <h3>Inquery</h3>
+
+        <h4>Request</h4>
+
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Required</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>reff_id</td><td>Partner Reference ID</td><td>Yes</td><td>String (max 15)</td></tr>
+        <tr><td>product</td><td>Product Code</td><td>Yes</td><td>String</td></tr>
+        <tr><td>customer_id</td><td>Customer ID/Phone Number</td><td>Yes</td><td>String</td></tr>
+        </tbody></table>
+
+        <h4>Response</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
+        <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>datetime ISO 8601</td><td>String</td></tr>
+        <tr><td>data</td><td>Data</td><td>Object</td></tr>
+        </tbody></table>
+
+        <h4>Response Data</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>req_date</td><td>Request Date ISO 8601</td><td>String</td></tr>
+        <tr><td>reff_id</td><td>Partner Reference ID</td><td>String</td></tr>
+        <tr><td>product</td><td>Product Code</td><td>String</td></tr>
+        <tr><td>customer_id</td><td>Customer ID/Phone Number</td><td>String</td></tr>
+        <tr><td>biller_reff</td><td>Biller Reference ID</td><td>String</td></tr>
+        <tr><td>price</td><td>Price</td><td>Number</td></tr>
+        <tr><td>details</td><td>Details Biller</td><td>Object</td></tr>
+        <tr><td>trans_date</td><td>Transaction Date ISO 8601</td><td>String</td></tr>
+        <tr><td>saldo</td><td>Balance</td><td>Number</td></tr>
+        <tr><td>message</td><td>Message</td><td>String</td></tr>
+        </tbody></table>
+
+        <h3>Payment</h3>
+
+        <h4>Request</h4>
+
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Required</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>reff_id</td><td>Partner Reference ID</td><td>Yes</td><td>String (max 15)</td></tr>
+        <tr><td>product</td><td>Product Code</td><td>Yes</td><td>String</td></tr>
+        <tr><td>customer_id</td><td>Customer ID/Phone Number</td><td>Yes</td><td>String</td></tr>
+        <tr><td>total_amount</td><td>Total Amount from Inquery Response</td><td>Yes</td><td>Number</td></tr>
+        <tr><td>url_callback</td><td>Callback URL</td><td>No</td><td>String</td></tr>
+        </tbody></table>
+
+        <h4>Response</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
+        <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>datetime ISO 8601</td><td>String</td></tr>
+        <tr><td>data</td><td>Data</td><td>Object</td></tr>
+        </tbody></table>
+
+        <h4>Response Data</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>req_date</td><td>Request Date ISO 8601</td><td>String</td></tr>
+        <tr><td>reff_id</td><td>Partner Reference ID</td><td>String</td></tr>
+        <tr><td>product</td><td>Product Code</td><td>String</td></tr>
+        <tr><td>customer_id</td><td>Customer ID/Phone Number</td><td>String</td></tr>
+        <tr><td>biller_reff</td><td>Biller Reference ID</td><td>String</td></tr>
+        <tr><td>price</td><td>Price</td><td>Number</td></tr>
+        <tr><td>details</td><td>Details Biller</td><td>Object</td></tr>
+        <tr><td>trans_date</td><td>Transaction Date ISO 8601</td><td>String</td></tr>
+        <tr><td>saldo</td><td>Balance</td><td>Number</td></tr>
+        <tr><td>message</td><td>Message</td><td>String</td></tr>
+        </tbody></table>
+
+        <h3>Balance</h3>
+
+        <h4>Request</h4>
+
+        <p>Endpoint ini tidak memerlukan body parameter apa pun. Cukup kirimkan permintaan GET untuk mendapatkan sisa saldo akun.</p>
+
+        <h4>Response</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
+        <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>datetime ISO 8601</td><td>String</td></tr>
+        <tr><td>data</td><td>Data</td><td>Object</td></tr>
+        </tbody></table>
+        
+        <h4>Response Data</h4>
+        <table><thead><tr>
+          <th>Key</th>
+          <th>Description</th>
+          <th>Type</th>
+        </tr></thead><tbody>
+          <tr><td>saldo</td><td>Balance</td><td>Number</td></tr>
+          <tr><td>update_at</td><td>Last Update datetime ISO 8601</td><td>String</td></tr>
+        </tbody></table>
+
+        <h3>Check Status</h3>
+
+        <h4>Request</h4>
+
+        <p>Tambahkan query parameter = <code>reff_id</code> setelah endpoint path untuk memeriksa final status transaksi <code>{base_url}/checkstatus?reff_id=?</code>.</p>
+
+        <table><thead><tr>
+          <th>Parameter</th>
+          <th>Description</th>
+          <th>Required</th>
+          <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>reff_id</td><td>Partner Reference ID</td><td>Yes</td><td>String (max 15)</td></tr>
+        </tbody></table>
+
+        <h4>Response</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
+        <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>datetime ISO 8601</td><td>String</td></tr>
+        <tr><td>data</td><td>Data</td><td>Object</td></tr>
+        </tbody></table>
+
+        <h4>Response Data</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr><td>req_date</td><td>Request Date ISO 8601</td><td>String</td></tr>
+        <tr><td>reff_id</td><td>Partner Reference ID</td><td>String</td></tr>
+        <tr><td>product</td><td>Product Code</td><td>String</td></tr>
+        <tr><td>customer_id</td><td>Customer ID/Phone Number</td><td>String</td></tr>
+        <tr><td>biller_reff</td><td>Biller Reference ID</td><td>String</td></tr>
+        <tr><td>sn</td><td>SN</td><td>String</td></tr>
+        <tr><td>price</td><td>Price</td><td>Number</td></tr>
+        <tr><td>details</td><td>Details Biller (Payment Transaction)</td><td>Object</td></tr>
+        <tr><td>trans_date</td><td>Transaction Date ISO 8601</td><td>String</td></tr>
+        <tr><td>saldo</td><td>Balance</td><td>Number</td></tr>
+        <tr><td>message</td><td>Message</td><td>String</td></tr>
+        </tbody></table>
+
+        <h2>HTTP Request & Response Example</h2>
+
+        <h3>Product List</h3>
+
+        <h4>Endpoint Path</h4>
+
+        <pre><code>GET {base_url}/getproduct</code></pre>
+
+        <h4>Request</h4>
+
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Value</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+
+        <tr>
+        <td>PayloadSign</td>
+        <td>partner_id</td>
+        <td>String</td>
+        </tr>
+        
+        </tbody></table>
+
+        <pre><code class="language-">PayloadSign = partner_id</code></pre>
+        
+        <p>Contoh pembuatan payloadSign:</p>
+        
+        <pre><code>method = 'GET'
+path = 'getproduct'
+payloadSign = PARTNER1
+timestamp = 1790202409</code></pre>
+
+        <p>Contoh Hasil:</p>
+        
+        <pre><code>payloadSign = PARTNER1</code></pre>
+        
+        <p>Buat <code>Canonical Request</code>:</p>
+
+        <pre><code class="language-">canonicalRequest = GET:getproduct:PARTNER1:1790202409</code></pre>
+
+        <p>Buat <code>Signature</code>:</p>
+
+        <pre><code class="language-">signature = HmacSha256(canonicalRequest, secret)</code></pre>
+
+        <p>Contoh Request:</p>
+
+        <pre><code>curl -X GET "https://haobusiness.id/partner/dev/getproduct" \
+  -H "Content-Type: application/json"
+  -H "signature: YOUR_GENERATED_SIGNATURE" \
+  -H "timestamp: 1790202409"</code></pre>
+
+        <h4>Response</h4>
+        <p>Contoh Response:</p>
+
+        <pre><code class="language-json">{
+  "respCode": "00",
+  "respMessage": "Success",
+  "timestamp": "2026-10-24T05:26:49.83+07:00",
+  "total": 2,
+  "data": [
+    {
+      "namaoperator": "TELKOMSEL",
+      "data": [
+        {
+          "namaproduk": "TELKOMSEL REGULER 5.000",
+          "kodeproduk": "S5",
+          "status": 1,
+          "statustext": "TERSEDIA",
+          "harga": 5210,
+          "jenis": "prepaid"
+        }
+      ]
+    },
+    {
+      "namaoperator": "DEV",
+      "data": [
+        {
+          "namaproduk": "TELKOMSEL 5000",
+          "kodeproduk": "SDEV5",
+          "status": 1,
+          "statustext": "TERSEDIA",
+          "harga": 5500,
+          "jenis": "prepaid"
+        }
+      ]
+    }
+  ]
+}
+</pre></code>
+
+        <h3>Topup </h3>
+        <h4>Endpoint Path</h4>
+        <pre><code>POST {base_url}/topup</code></pre>
+
+        <h4>Request</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Value</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>PayloadSign</td>
+        <td>partner_id + reff_id + product + customer_id + req_price</td>
+        <td>String</td>
+        </tr>
+        </tbody></table>
+
+        <pre><code class="language-">PayloadSign = partner_id + reff_id + product + customer_id + req_price</code></pre>
+
+        <ul>
+        <li>Parameter <code>req_price</code> digunakan untuk mengunci harga transaksi. Sistem akan membandingkan nilai <code>req_price</code> dengan harga pada sistem biller. Jika nilainya berbeda, transaksi akan ditolak.</li>
+        <li>Gunakan nilai <code>0</code> pada <code>req_price</code> untuk memproses transaksi tanpa validasi harga.</li>
+        </ul>
+
+        <p>Contoh pembuatan payloadSign:</p>
+        <pre><code>method = 'POST'
+path = 'topup'
+partner_id = PARTNER1
+reff_id = 12345
+product = S5
+customer_id = 081212312368
+req_price = 0
+timestamp = 1790194678</code></pre>
+
+        <p>Contoh Hasil:</p>
+        <pre><code>payloadSign = PARTNER112345S50812123123680</code></pre>
+
+        <p>Buat <code>Canonical Request</code>:</p>
+        <pre><code class="language-">canonicalRequest = POST:topup:PARTNER112345S50812123123680:1790194678</code></pre>
+
+        <p>Buat <code>Signature</code>:</p>
+        <pre><code class="language-">signature = HmacSha256(canonicalRequest, secret)</code></pre>
+
+        <p>Contoh Request <bold class="bold">Tanpa Callback</bold>:</p>
+        <pre><code>curl -X POST "https://haobusiness.id/partner/dev/topup" \
+  -H "Content-Type: application/json" \
+  -H "signature: YOUR_GENERATED_SIGNATURE" \
+  -H "timestamp: 1790194678" \
+  -d '{"reff_id":"123456722","product":"S5","customer_id":"081230000001","req_price":0}'</code></pre>
+
+        <p>Contoh Request <bold class="bold">Dengan Callback</bold>:</p>
+        <pre><code>curl -X POST "https://haobusiness.id/partner/dev/topup" \
+  -H "Content-Type: application/json" \
+  -H "signature: YOUR_GENERATED_SIGNATURE" \
+  -H "timestamp: 1790194678" \
+  -d '{"reff_id":"123456722","product":"S5","customer_id":"081230000001","url_callback":"https://domainanda.com/webhook","req_price":0}'</code></pre>
+
+        <h4>Response</h4>
+        <p>Contoh Response:</p>
+        <pre><code class="language-json">{
+  "respCode": "00",
+  "respMessage": "SUKSES",
+  "timestamp": "2026-10-24T03:17:58.83+07:00",
+  "data": {
+    "req_date": "2026-10-24T03:17:58.00+07:00",
+    "reff_id": "123456722",
+    "product": "S5",
+    "customer_id": "081230000001",
+    "req_price": 0,
+    "biller_reff": "17Sa03104703190",
+    "sn": "1813457779",
+    "price": "5950",
+    "message": "SUKSES",
+    "trans_date": "2026-10-24T03:17:47.00+07:00",
+    "saldo": 20000
+  }
+}</pre></code>
+
+        <h3>Inquery </h3>
+        <h4>Endpoint Path</h4>
+        <pre><code>POST {base_url}/inquery</code></pre>
+
+        <h4>Request</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Value</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>PayloadSign</td>
+        <td>partner_id + reff_id + product + customer_id</td>
+        <td>String</td>
+        </tr>
+        </tbody></table>
+
+        <pre><code class="language-">PayloadSign = partner_id + reff_id + product + customer_id</code></pre>
+
+        <p>Contoh pembuatan payloadSign:</p>
+        <pre><code>method = 'POST'
+path = 'inquery'
+partner_id = PARTNER1
+reff_id = 233333
+product = PLNPREPAID
+customer_id = 32157252722
+timestamp = 1790202117</code></pre>
+
+        <p>Contoh Hasil:</p>
+        <pre><code>payloadSign = PARTNER1233333PLNPREPAID32157252722</code></pre>
+
+        <p>Buat <code>Canonical Request</code>:</p>
+        <pre><code class="language-">canonicalRequest = POST:inquery:PARTNER1233333PLNPREPAID32157252722:1790202117</code></pre>
+
+        <p>Buat <code>Signature</code>:</p>
+        <pre><code class="language-">signature = HmacSha256(canonicalRequest, secret)</code></pre>
+
+        <p>Contoh Request:</p>
+        <pre><code>curl -X POST "https://haobusiness.id/partner/dev/inquery" \
+  -H "Content-Type: application/json" \
+  -H "signature: YOUR_GENERATED_SIGNATURE" \
+  -H "timestamp: 1790202117" \
+  -d '{"reff_id":"233333","product":"PLNPREPAID","customer_id":"32157252722"}'</code></pre>
+
+        <h4>Response</h4>
+        <p>Contoh Response:</p>
+        <pre><code class="language-json">{
+  "respCode": "00",
+  "respMessage": "SUKSES",
+  "timestamp": "2026-10-24T05:21:57.84+07:00",
+  "data": {
+    "req_date": "2026-10-24T05:21:56.00+07:00",
+    "reff_id": "233333",
+    "product": "PLNPREPAID",
+    "customer_id": "32157252722",
+    "biller_reff": "21Sa05105602326",
+    "price": 0,
+    "details": {
+      "customer_name": "SAMSUL BAHRI",
+      "tarif_daya": "R1/1300VA",
+      "amount": "20000",
+      "admin_fee": "2500",
+      "total_amount": "22500"
+    },
+    "trans_date": "2026-10-24T05:21:56.84+07:00",
+    "saldo": 20000,
+    "message": "SUKSES"
+  }
+}</pre></code>
+
+        <h3>Payment </h3>
+        <h4>Endpoint Path</h4>
+        <pre><code>POST {base_url}/payment</code></pre>
+
+        <h4>Request</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Value</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>PayloadSign</td>
+        <td>partner_id + reff_id + product + customer_id + total_amount</td>
+        <td>String</td>
+        </tr>
+        </tbody></table>
+
+        <pre><code class="language-">PayloadSign = partner_id + reff_id + product + customer_id + total_amount</code></pre>
+
+        <p>Nilai <code>total_amount</code> didapat dari response Inquery.</p>
+        <p>Contoh pembuatan payloadSign:</p>
+        <pre><code>method = 'POST'
+path = 'payment'
+partner_id = PARTNER1
+reff_id = 233333
+product = PLNPREPAID
+customer_id = 32157252722
+total_amount = 22500
+timestamp = 1790202612</code></pre>
+
+        <p>Contoh Hasil:</p>
+        <pre><code>payloadSign = PARTNER1233333PLNPREPAID3215725272222500</code></pre>
+
+        <p>Buat <code>Canonical Request</code>:</p>
+        <pre><code class="language-">canonicalRequest = POST:payment:PARTNER1233333PLNPREPAID3215725272222500:1790202612</code></pre>
+
+        <p>Buat <code>Signature</code>:</p>
+        <pre><code class="language-">signature = HmacSha256(canonicalRequest, secret)</code></pre>
+
+        <p>Contoh Request <bold class="bold">Tanpa Callback</bold>:</p>
+        <pre><code>curl -X POST "https://haobusiness.id/partner/dev/payment" \
+  -H "Content-Type: application/json" \
+  -H "signature: YOUR_GENERATED_SIGNATURE" \
+  -H "timestamp: 1790202612" \
+  -d '{"reff_id":"233333","product":"PLNPREPAID","customer_id":"32157252722","total_amount":22500}'</code></pre>
+
+        <p>Contoh Request <bold class="bold">Dengan Callback</bold>:</p>
+        <pre><code>curl -X POST "https://haobusiness.id/partner/dev/payment" \
+  -H "Content-Type: application/json" \
+  -H "signature: YOUR_GENERATED_SIGNATURE" \
+  -H "timestamp: 1790202612" \
+  -d '{"reff_id":"233333","product":"PLNPREPAID","customer_id":"32157252722","total_amount":22500,"url_callback":"https://domainanda.com/webhook"}'</code></pre>
+
+        <h4>Response</h4>
+        <p>Contoh Response:</p>
+        <pre><code class="language-json">{
+  "respCode": "00",
+  "respMessage": "SUKSES",
+  "timestamp": "2026-10-24T05:30:12.50+07:00",
+  "data": {
+    "req_date": "2026-10-24T05:30:10.00+07:00",
+    "reff_id": "233333",
+    "product": "PLNPREPAID",
+    "customer_id": "32157252722",
+    "biller_reff": "30Sa05102503190",
+    "price": 22500,
+    "details": {
+      "customer_name": "SAMSUL BAHRI",
+      "tarif_daya": "R1/1300VA",
+      "amount": "20000",
+      "admin_fee": "2500",
+      "total_amount": "22500"
+    },
+    "message": "SUKSES",
+    "trans_date": "2026-10-24T05:30:10.50+07:00",
+    "saldo": 20000
+  }
+}</pre></code>
+
+        <h3>Balance </h3>
+        <h4>Endpoint Path</h4>
+        <pre><code>GET {base_url}/balance</code></pre>
+
+        <h4>Request</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Value</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>PayloadSign</td>
+        <td>partner_id</td>
+        <td>String</td>
+        </tr>
+        </tbody></table>
+
+        <pre><code class="language-">PayloadSign = partner_id</code></pre>
+        <p>Contoh pembuatan payloadSign:</p>
+        <pre><code>method = 'GET'
+path = 'balance'
+payloadSign = PARTNER1
+timestamp = 1792612847</code></pre>
+        <p>Contoh Hasil:</p>
+        <pre><code>payloadSign = PARTNER1</code></pre>
+        <p>Buat <code>Canonical Request</code>:</p>
+        <pre><code class="language-">canonicalRequest = GET:balance:PARTNER1:1792612847</code></pre>
+        <p>Buat <code>Signature</code>:</p>
+        <pre><code class="language-">signature = HmacSha256(canonicalRequest, secret)</code></pre>
+
+        <h4>Response</h4>
+        <p>Contoh Request:</p>
+        <pre><code>curl -X GET "https://haobusiness.id/partner/dev/balance" \
+  -H "Content-Type: application/json" \
+  -H "signature: YOUR_GENERATED_SIGNATURE" \
+  -H "timestamp: 1792612847"</code></pre>
+
+        <p>Contoh Response:</p>
+        <pre><code class="language-json">{
+  "respCode": "00",
+  "respMessage": "SUKSES",
+  "timestamp": "2026-10-24T05:02:50.43+07:00",
+  "data": {
+    "saldo": 20000,
+    "update_at": "2026-10-22T13:40:07.00+07:00"
+  }
+}</pre></code>
+
+        <h3>Checkstatus </h3>
+
+        <pre><code>GET {base_url}/checkstatus?reff_id=?</code></pre>
+        <p>Checkstatus hanya dapat digunakan untuk transaksi <code>topup</code> dan <code>payment</code>.</p>
+
+        <h4>Request</h4>
+        <table><thead><tr>
+        <th>Key</th>
+        <th>Value</th>
+        <th>Type</th>
+        </tr></thead><tbody>
+        <tr>
+        <td>PayloadSign</td>
+        <td>partner_id + reff_id</td>
+        <td>String</td>
+        </tr>
+        </tbody></table>
+
+        <pre><code class="language-">PayloadSign = partner_id + reff_id</code></pre>
+        <p>Contoh pembuatan payloadSign:</p>
+        <pre><code>method = 'GET'
+path = 'checkstatus'
+partner_id = PARTNER1
+reff_id = 123456722
+timestamp = 1792612847</code></pre>
+        <p>Contoh Hasil:</p>
+        <pre><code>payloadSign = PARTNER1123456722</code></pre>
+        <p>Buat <code>Canonical Request</code>:</p>
+        <pre><code class="language-">canonicalRequest = GET:checkstatus:PARTNER1123456722:1792612847</code></pre>
+        <p>Buat <code>Signature</code>:</p>
+        <pre><code class="language-">signature = HmacSha256(canonicalRequest, secret)</code></pre>
+        <p>Contoh Request:</p>
+        <pre><code>curl -X GET "https://haobusiness.id/partner/dev/checkstatus?reff_id=123456722" \
+  -H "Content-Type: application/json" \
+  -H "signature: YOUR_GENERATED_SIGNATURE" \
+  -H "timestamp: 1792612847"</code></pre>
+
+        <h4>Response</h4>
+
+        <p>Contoh Response:</p>
+        <pre><code class="language-json">{
+  "respCode": "00",
+  "respMessage": "SUKSES",
+  "timestamp": "2026-10-24T03:20:12.50+07:00",
+  "data": {
+    "req_date": "2026-10-24T03:20:12.00+07:00",
+    "reff_id": "123456722",
+    "biller_reff": "17Sa03104703190",
+    "price": "5950",
+    "trans_date": "2026-10-24T03:17:47.00+07:00",
+    "saldo": 20000,
+    "sn": "1813457779",
+    "message": "SUKSES"
+  }
+}</pre></code>
+
+    </div>
     </main>
     <aside class="sidebar">
       <nav aria-label="Dokumentasi API" id="sidebar-navigation"></nav>
@@ -808,6 +1503,9 @@ function CreateHMAC(canonicalRequest, secret) {
     const documentation = document.getElementById("documentation");
     const sidebarNavigation = document.getElementById("sidebar-navigation");
     const headings = [...documentation.querySelectorAll("h1, h2, h3, h4")];
+    const navigationHeadings = headings.filter(heading =>
+      heading.tagName === "H2" || heading.tagName === "H3"
+    );
 
     // Generate unique IDs for headings to use as anchor links
     function createHeadingId(text, usedIds) {
@@ -830,9 +1528,8 @@ function CreateHMAC(canonicalRequest, secret) {
       target.replaceChildren(root);
 
       let currentSection;
-      let currentSubsection;
 
-      headings.forEach(heading => {
+      navigationHeadings.forEach(heading => {
         const item = document.createElement("li");
         const link = document.createElement("a");
         link.href = `#${heading.id}`;
@@ -844,34 +1541,6 @@ function CreateHMAC(canonicalRequest, secret) {
         if (heading.tagName === "H2") {
           root.appendChild(item);
           currentSection = item;
-          currentSubsection = null;
-          return;
-        }
-
-        if (heading.tagName === "H3") {
-          if (!currentSection) {
-            root.appendChild(item);
-            currentSubsection = item;
-            return;
-          }
-
-          let nestedList = currentSection.querySelector(":scope > ul");
-          if (!nestedList) {
-            nestedList = document.createElement("ul");
-            currentSection.appendChild(nestedList);
-          }
-          nestedList.appendChild(item);
-          currentSubsection = item;
-          return;
-        }
-
-        if (heading.tagName === "H4" && currentSubsection) {
-          let nestedList = currentSubsection.querySelector(":scope > ul");
-          if (!nestedList) {
-            nestedList = document.createElement("ul");
-            currentSubsection.appendChild(nestedList);
-          }
-          nestedList.appendChild(item);
           return;
         }
 
@@ -919,9 +1588,11 @@ function CreateHMAC(canonicalRequest, secret) {
         if (!visibleSection) return;
         setActiveHeading(visibleSection.target.id);
       }, { root: null, rootMargin: "-15% 0px -70% 0px", threshold: 0 });
-      headings.forEach(section => observer.observe(section));
+      navigationHeadings.forEach(section => observer.observe(section));
 
-      const initialHeading = headings.find(heading => heading.getBoundingClientRect().top >= 88);
+      const initialHeading = navigationHeadings.find(
+        heading => heading.getBoundingClientRect().top >= 88
+      );
       if (initialHeading) setActiveHeading(initialHeading.id);
     }
 
