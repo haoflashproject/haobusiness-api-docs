@@ -465,7 +465,7 @@
         </tr>
         <tr>
         <td>timestamp</td>
-        <td>Timestamp</td>
+        <td>date-time ISO 8601</td>
         <td>String</td>
         </tr>
         </tbody></table>
@@ -490,31 +490,31 @@
         </tr></thead><tbody>
         <tr>
         <td>partner_id</td>
-        <td>Partner ID yang diberikan oleh HAObusiness</td>
+        <td>Provided by HAObusiness</td>
         <td>Yes</td>
         <td>String</td>
         </tr>
         <tr>
         <td>reff_id</td>
-        <td>ID referensi transaksi</td>
+        <td>Partner Reference ID</td>
         <td>Yes</td>
         <td>String (max 15)</td>
         </tr>
         <tr>
         <td>product</td>
-        <td>Produk yang dibeli</td>
+        <td>Product Code</td>
         <td>Yes</td>
         <td>String</td>
         </tr>
         <tr>
         <td>customer_id</td>
-        <td>Nomor pelanggan</td>
+        <td>Customer ID/Phone Number</td>
         <td>Yes</td>
         <td>String</td>
         </tr>
         <tr>
         <td>req_price</td>
-        <td>Harga permintaan</td>
+        <td>Request Price</td>
         <td>Yes</td>
         <td>Number</td>
         </tr>
@@ -544,13 +544,13 @@ req_price = 0</code></pre>
         </tr></thead><tbody>
         <tr>
         <td>method</td>
-        <td>Metode HTTP yang digunakan</td>
+        <td>HTTP Method Used</td>
         <td>Yes</td>
         <td>String</td>
         </tr>
         <tr>
         <td>path</td>
-        <td>Path endpoint</td>
+        <td>Endpoint path</td>
         <td>Yes</td>
         <td>String</td>
         </tr>
@@ -562,7 +562,7 @@ req_price = 0</code></pre>
         </tr>
         <tr>
         <td>timestamp</td>
-        <td>Timestamp transaksi</td>
+        <td>date-time ISO 8601</td>
         <td>Yes</td>
         <td>String</td>
         </tr>
@@ -594,17 +594,17 @@ timestamp = 1792612847</code></pre>
         <tr>
         <td>Algorithm</td>
         <td>HMAC SHA256</td>
-        <td>Jenis algoritma signature yang digunakan</td>
+        <td>Signature Algorithm Used</td>
         </tr>
         <tr>
         <td>canonicalRequest</td>
         <td>Canonical Request String</td>
-        <td>Request yang telah diubah menjadi format canonical</td>
+        <td>The request data concatenated in a predefined order to generate the signature.</td>
         </tr>
         <tr>
-        <td>Secret</td>
-        <td>Diberikan oleh HAObusiness</td>
-        <td>Secret untuk pembuatan signature</td>
+        <td>secret</td>
+        <td>Provided by HAObusiness</td>
+        <td>The secret key you received from HAObusiness during partner onboarding</td>
         </tr>
         </tbody></table>
 
@@ -734,7 +734,7 @@ function CreateHMAC(canonicalRequest, secret) {
 
         <tr>
         <td>timestamp</td>
-        <td>Timestamp of Response</td>
+        <td>date-time ISO 8601</td>
         <td>String</td>
         </tr>
 
@@ -747,7 +747,7 @@ function CreateHMAC(canonicalRequest, secret) {
         <tr>
         <td>data</td>
         <td>Data</td>
-        <td>Object/Array</td>
+        <td>Object</td>
         </tr>
         
         </tbody></table>
@@ -760,7 +760,7 @@ function CreateHMAC(canonicalRequest, secret) {
 
         <tr>
         <td>req_date</td>
-        <td>Request Date</td>
+        <td>Request Date ISO 8601</td>
         <td>String</td>
         </tr>
 
@@ -838,7 +838,7 @@ function CreateHMAC(canonicalRequest, secret) {
 
         <tr>
         <td>trans_date</td>
-        <td>Transaction Date</td>
+        <td>Transaction Date ISO 8601</td>
         <td>String</td>
         </tr>
 
@@ -884,7 +884,7 @@ function CreateHMAC(canonicalRequest, secret) {
 
         <tr>
         <td>timestamp</td>
-        <td>Timestamp of Response</td>
+        <td>date-time ISO 8601</td>
         <td>String</td>
         </tr>
 
@@ -899,7 +899,7 @@ function CreateHMAC(canonicalRequest, secret) {
         <td>Data</td>
         <td>Array</td>
         </tr>
-        
+        w
         </tbody></table>
 
         <h3>Topup</h3>
@@ -927,7 +927,7 @@ function CreateHMAC(canonicalRequest, secret) {
         </tr></thead><tbody>
         <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
         <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
-        <tr><td>timestamp</td><td>Timestamp of Response</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>date-time ISO 8601</td><td>String</td></tr>
         <tr><td>data</td><td>Data</td><td>Object</td></tr>
         </tbody></table>
 
@@ -937,7 +937,7 @@ function CreateHMAC(canonicalRequest, secret) {
         <th>Description</th>
         <th>Type</th>
         </tr></thead><tbody>
-        <tr><td>req_date</td><td>Request Date</td><td>String</td></tr>
+        <tr><td>req_date</td><td>Request Date ISO 8601</td><td>String</td></tr>
         <tr><td>reff_id</td><td>Partner Reference ID</td><td>String</td></tr>
         <tr><td>product</td><td>Product Code</td><td>String</td></tr>
         <tr><td>customer_id</td><td>Customer ID/Phone Number</td><td>String</td></tr>
@@ -946,7 +946,7 @@ function CreateHMAC(canonicalRequest, secret) {
         <tr><td>sn</td><td>SN</td><td>String</td></tr>
         <tr><td>price</td><td>Price</td><td>Number</td></tr>
         <tr><td>message</td><td>Message</td><td>String</td></tr>
-        <tr><td>trans_date</td><td>Transaction Date</td><td>String</td></tr>
+        <tr><td>trans_date</td><td>Transaction Date ISO 8601</td><td>String</td></tr>
         <tr><td>saldo</td><td>Balance</td><td>Number</td></tr>
         </tbody></table>
 
@@ -974,7 +974,7 @@ function CreateHMAC(canonicalRequest, secret) {
         </tr></thead><tbody>
         <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
         <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
-        <tr><td>timestamp</td><td>Timestamp of Response</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>date-time ISO 8601</td><td>String</td></tr>
         <tr><td>data</td><td>Data</td><td>Object</td></tr>
         </tbody></table>
 
@@ -1024,7 +1024,7 @@ function CreateHMAC(canonicalRequest, secret) {
         </tr></thead><tbody>
         <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
         <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
-        <tr><td>timestamp</td><td>Timestamp of Response</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>date-time ISO 8601</td><td>String</td></tr>
         <tr><td>data</td><td>Data</td><td>Object</td></tr>
         </tbody></table>
 
@@ -1064,7 +1064,7 @@ function CreateHMAC(canonicalRequest, secret) {
         </tr></thead><tbody>
         <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
         <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
-        <tr><td>timestamp</td><td>Timestamp of Response</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>date-time ISO 8601</td><td>String</td></tr>
         <tr><td>data</td><td>Data</td><td>Object</td></tr>
         </tbody></table>
         
@@ -1075,14 +1075,14 @@ function CreateHMAC(canonicalRequest, secret) {
           <th>Type</th>
         </tr></thead><tbody>
           <tr><td>saldo</td><td>Balance</td><td>Number</td></tr>
-          <tr><td>update_at</td><td>Last Update Timestamp</td><td>String</td></tr>
+          <tr><td>update_at</td><td>Last Update Timestamp (date-time ISO 8601)</td><td>String</td></tr>
         </tbody></table>
 
         <h3>Check Status</h3>
 
         <h4>Request</h4>
 
-        <p>Tambahkan query parameter = <code>reff_id</code> setelah endpoint path untuk memeriksa final status transaksi <code>{base_url}/checkstatus?reff_id=?</code>.</p>
+        <p>Tambahkan query parameter = <code>reff_id</code> setelah endpoint path untuk memeriksa final status transaksi <code>{base_url}/checkstatus?reff_id={reff_id}</code>.</p>
 
         <table><thead><tr>
           <th>Parameter</th>
@@ -1101,7 +1101,7 @@ function CreateHMAC(canonicalRequest, secret) {
         </tr></thead><tbody>
         <tr><td>respCode</td><td>Response Code</td><td>String</td></tr>
         <tr><td>respMessage</td><td>Response Message</td><td>String</td></tr>
-        <tr><td>timestamp</td><td>Timestamp of Response</td><td>String</td></tr>
+        <tr><td>timestamp</td><td>date-time ISO 8601</td><td>String</td></tr>
         <tr><td>data</td><td>Data</td><td>Object</td></tr>
         </tbody></table>
 
@@ -1270,14 +1270,25 @@ function CreateHMAC(canonicalRequest, secret) {
   -H <span class="code-red">"Content-Type: application/json"</span> \
   -H <span class="code-red">"signature: YOUR_GENERATED_SIGNATURE"</span> \
   -H <span class="code-red">"timestamp: 1790194678"</span> \
-  -d <span class="code-red">'{"reff_id":"123456722","product":"S5","customer_id":"081230000001","req_price":0}'</span></code></pre>
+  -d <span class="code-red">'{
+    "reff_id":"123456722",
+    "product":"S5",
+    "customer_id":"081230000001",
+    "req_price":0
+  }'</span></code></pre>
 
         <p>Contoh Request <bold class="bold">Dengan Callback</bold>:</p>
         <pre><code class="curl-example"><span class="code-red">curl</span> -X POST <span class="code-red">"https://haobusiness.id/partner/dev/topup"</span> \
   -H <span class="code-red">"Content-Type: application/json"</span> \
   -H <span class="code-red">"signature: YOUR_GENERATED_SIGNATURE"</span> \
   -H <span class="code-red">"timestamp: 1790194678"</span> \
-  -d <span class="code-red">'{"reff_id":"123456722","product":"S5","customer_id":"081230000001","url_callback":"https://example.com","req_price":0}'</span></code></pre>
+  -d <span class="code-red">'{
+    "reff_id":"123456722",
+    "product":"S5",
+    "customer_id":"081230000001",
+    "url_callback":"https://example.com",
+    "req_price":0
+  }'</span></code></pre>
 
         <h4>Response</h4>
         <p>Contoh Response:</p>
@@ -1321,8 +1332,8 @@ function CreateHMAC(canonicalRequest, secret) {
 
         <ul>
           <li>Untuk produk <bold class="bold">PLN TOKEN</bold>, pada layanan ini dapat digunakan untuk memeriksa data pelanggan dengan menggunakan kode produk fixed <bold class="bold">PLNPREPAID</bold>.</li>
-          <li>Key <code>amount</code> digunakan untuk produk yang memerlukan nominal pembelian tertentu, seperti token PLN dan e-money.</li>
-          <li>Untuk produk <bold class="bold">payment,</bold> key <code>amount</code> <bold class="bold">wajib</bold> diisi dengan nilai <code>0</code> .</li>
+          <li>Nilai <code>amount</code> digunakan untuk produk yang memerlukan nominal pembelian tertentu, seperti token PLN dan e-money.</li>
+          <li>Untuk produk <bold class="bold">payment,</bold> nilai <code>amount</code> <bold class="bold">wajib</bold> diisi dengan nilai <code>0</code> .</li>
         </ul>
 
         <p>Contoh:</p>
@@ -1349,7 +1360,12 @@ function CreateHMAC(canonicalRequest, secret) {
   -H <span class="code-red">"Content-Type: application/json"</span> \
   -H <span class="code-red">"signature: YOUR_GENERATED_SIGNATURE"</span> \
   -H <span class="code-red">"timestamp: 1790202117"</span> \
-  -d <span class="code-red">'{"reff_id":"233333","product":"PLNPREPAID","customer_id":"32157252722","amount":20000}'</span></code></pre>
+  -d <span class="code-red">'{
+    "reff_id":"233333",
+    "product":"PLNPREPAID",
+    "customer_id":"32157252722",
+    "amount":20000
+  }'</span></code></pre>
 
         <h4>Response</h4>
         <p>Contoh Response:</p>
@@ -1451,14 +1467,27 @@ function CreateHMAC(canonicalRequest, secret) {
   -H <span class="code-red">"Content-Type: application/json"</span> \
   -H <span class="code-red">"signature: YOUR_GENERATED_SIGNATURE"</span> \
   -H <span class="code-red">"timestamp: 1790202612"</span> \
-  -d <span class="code-red">'{"reff_id":"1232213","product":"PLNTOKEN","customer_id":"32157252722","total":1800,"inq_biller_reff":"565810933"}'</span></code></pre>
+  -d <span class="code-red">'{
+    "reff_id":"1232213",
+    "product":"PLNTOKEN",
+    "customer_id":"32157252722",
+    "total":1800,
+    "inq_biller_reff":"565810933"
+  }'</span></code></pre>
 
         <p>Contoh Request <bold class="bold">Dengan Callback</bold>:</p>
         <pre><code class="curl-example"><span class="code-red">curl</span> -X POST <span class="code-red">"https://haobusiness.id/partner/dev/payment"</span> \
   -H <span class="code-red">"Content-Type: application/json"</span> \
   -H <span class="code-red">"signature: YOUR_GENERATED_SIGNATURE"</span> \
   -H <span class="code-red">"timestamp: 1790202612"</span> \
-  -d <span class="code-red">'{"reff_id":"1232213","product":"PLNTOKEN","customer_id":"32157252722","total":1800,"inq_biller_reff":"565810933","url_callback":"https://example.com"'}</span></code></pre>
+  -d <span class="code-red">'{
+    "reff_id":"1232213",
+    "product":"PLNTOKEN",
+    "customer_id":"32157252722",
+    "total":1800,
+    "inq_biller_reff":"565810933",
+    "url_callback":"https://example.com"
+  }'</span></code></pre>
 
         <h4>Response</h4>
         <p>Contoh Response:</p>
@@ -1591,7 +1620,7 @@ function CreateHMAC(canonicalRequest, secret) {
 
         <h3>Check Status</h3>
 
-        <pre><code>GET {base_url}/checkstatus?reff_id=?</code></pre>
+        <pre><code>GET {base_url}/checkstatus?reff_id={reff_id}</code></pre>
 
         <h4>Request</h4>
         <table><thead><tr>
