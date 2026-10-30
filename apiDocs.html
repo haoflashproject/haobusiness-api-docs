@@ -585,13 +585,6 @@ border-left-color: #0366d6; color: #0366d6; background: #e8f0fe; font-weight: 60
         <li>Gunakan endpoint <code>Check Status</code> sebagai alternatif untuk mendapatkan final status transaksi apabila callback tidak diterima.</li>
         </ul>
 
-        <p>Contoh format callback:</p>
-
-        <ul>
-          <li>https://{ip-or-domain}/...</li>
-          <li>http://{ip-or-domain}/...</li>
-        </ul>
-
         <p>Cara penggunaan callback:</p>
                 <ul>
         <li class="anchor-heading">Untuk menggunakan callback pada endpoint <code>topup</code> bisa lihat pada bagian <bold class="bold">Request & Response Example Topup</bold> <a href="#post-topup-2" class="heading-anchor" aria-label="Link ke Signature" title="Direct Link ke Topup">#</a></li>
@@ -2061,550 +2054,153 @@ function CreateHMAC(canonicalRequest, secret) {
     <tbody>
       <tr>
         <td>200</td>
-        <td>Everything worked as expected</td>
+        <td>Permintaan berhasil diproses</td>
         <td>Ok</td>
         <td>
-          Check response code list below to determine the transaction result
+          Cek tabel RC di bawah untuk mengetahui hasil transaksi
         </td>
       </tr>
       <tr>
         <td>400</td>
-        <td>The request contains invalid parameters or cannot be processed due to transaction-related conditions</td>
+        <td>Parameter tidak valid atau gagal memenuhi validasi transaksi</td>
         <td>Bad Request</td>
         <td>
-          Check the <code>respCode</code> and <code>respMessage</code>
-          in the response for error details
+          Cek tabel RC di bawah untuk mengetahui detail error
         </td>
       </tr>
       <tr>
         <td>401</td>
-        <td>The request could not be authenticated or authorized</td>
+        <td>Autentikasi atau otorisasi gagal</td>
         <td>Unauthorized</td>
         <td>
-          Verify the request headers, credentials, signature,
-          timestamp, and authorized IP address
+          Cek kembali nilai header, kredensial, atau signature yang benar
         </td>
       </tr>
       <tr>
         <td>500</td>
-        <td>An unexpected internal server error occurred while processing the request</td>
+        <td>Terjadi kesalahan internal pada server</td>
         <td>Internal Server Error</td>
-        <td>Contact Biller support for further assistance</td>
+        <td>Hubungi Biller untuk bantuan lebih lanjut</td>
       </tr>
     </tbody>
   </table>
 
-  <h3>200 - OK</h3>
+  <h3>Response Code Table</h3>
 
   <table>
     <thead>
       <tr>
-        <th>Response Name</th>
-        <th>Response Code</th>
-        <th>Response Message</th>
+        <th>RC</th>
+        <th>MESSAGE</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>TRX_SUKSES</td>
         <td>00</td>
         <td>SUKSES</td>
       </tr>
       <tr>
-        <td>TRX_PENDING</td>
         <td>01</td>
         <td>PENDING</td>
       </tr>
       <tr>
-        <td>TRX_GAGAL</td>
         <td>02</td>
         <td>GAGAL</td>
       </tr>
       <tr>
-        <td>TRX_NOT_FOUND</td>
         <td>03</td>
         <td>Data tidak ditemukan</td>
       </tr>
       <tr>
-        <td>TRX_IN_QUEUE</td>
         <td>27</td>
         <td>transaksi sedang dalam antrian</td>
       </tr>
       <tr>
-        <td>TRX_EXPIRED</td>
         <td>28</td>
         <td>expired</td>
       </tr>
-    </tbody>
-  </table>
-
-        <p>Contoh Response:</p>
-        <div class="tabs-scroll-wrapper tabs-scroll-responsive">
-          <button class="tabs-arrow tabs-arrow-prev" type="button" aria-label="Tab sebelumnya" title="Tab sebelumnya">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-          </button>
-          <div class="response-tabs" role="tablist" aria-label="Contoh response 200 OK">
-            <button class="response-tab active" id="rc200-sukses-tab" type="button" role="tab" aria-selected="true" aria-controls="rc200-sukses-panel">TRX_SUKSES</button>
-            <button class="response-tab" id="rc200-pending-tab" type="button" role="tab" aria-selected="false" aria-controls="rc200-pending-panel" tabindex="-1">TRX_PENDING</button>
-            <button class="response-tab" id="rc200-gagal-tab" type="button" role="tab" aria-selected="false" aria-controls="rc200-gagal-panel" tabindex="-1">TRX_GAGAL</button>
-            <button class="response-tab" id="rc200-notfound-tab" type="button" role="tab" aria-selected="false" aria-controls="rc200-notfound-panel" tabindex="-1">TRX_NOT_FOUND</button>
-            <button class="response-tab" id="rc200-inqueue-tab" type="button" role="tab" aria-selected="false" aria-controls="rc200-inqueue-panel" tabindex="-1">TRX_IN_QUEUE</button>
-            <button class="response-tab" id="rc200-expired-tab" type="button" role="tab" aria-selected="false" aria-controls="rc200-expired-panel" tabindex="-1">TRX_EXPIRED</button>
-          </div>
-          <button class="tabs-arrow tabs-arrow-next" type="button" aria-label="Tab berikutnya" title="Tab berikutnya">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </button>
-        </div>
-
-        <div class="response-panel" id="rc200-sukses-panel" role="tabpanel" aria-labelledby="rc200-sukses-tab">
-        <pre><code class="key-value-example"><span class="code-blue">TRX_SUKSES</span>: {
-    <span class="code-blue">httpStatus</span>: 200,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "00",
-      <span class="code-blue">respMessage</span>: "SUKSES",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc200-pending-panel" role="tabpanel" aria-labelledby="rc200-pending-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">TRX_PENDING</span>: {
-    <span class="code-blue">httpStatus</span>: 200,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "01",
-      <span class="code-blue">respMessage</span>: "PENDING",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc200-gagal-panel" role="tabpanel" aria-labelledby="rc200-gagal-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">TRX_GAGAL</span>: {
-    <span class="code-blue">httpStatus</span>: 200,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "02",
-      <span class="code-blue">respMessage</span>: "GAGAL",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc200-notfound-panel" role="tabpanel" aria-labelledby="rc200-notfound-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">TRX_NOT_FOUND</span>: {
-    <span class="code-blue">httpStatus</span>: 200,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "03",
-      <span class="code-blue">respMessage</span>: "Data tidak ditemukan",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc200-inqueue-panel" role="tabpanel" aria-labelledby="rc200-inqueue-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">TRX_IN_QUEUE</span>: {
-    <span class="code-blue">httpStatus</span>: 200,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "27",
-      <span class="code-blue">respMessage</span>: "transaksi sedang dalam antrian",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc200-expired-panel" role="tabpanel" aria-labelledby="rc200-expired-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">TRX_EXPIRED</span>: {
-    <span class="code-blue">httpStatus</span>: 200,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "28",
-      <span class="code-blue">respMessage</span>: "expired",
-    },
-  }</code></pre>
-        </div>
-
-  <h3 id="400-bad-request">400 - Bad Request</h3>
-
-  <table>
-    <thead>
       <tr>
-        <th>Response Name</th>
-        <th>Response Code</th>
-        <th>Response Message</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>TRX_REQ_PRICE_NOT_MATCH</td>
         <td>29</td>
         <td>harga request tidak sesuai</td>
       </tr>
       <tr>
-        <td>INQUERY_EXPIRED</td>
         <td>30</td>
         <td>Data inquery sudah digunakan payment,silahkan inquery ulang dengan reff_id baru</td>
       </tr>
       <tr>
-        <td>TRX_REJECT</td>
         <td>40</td>
         <td>Transaksi ditolak</td>
       </tr>
       <tr>
-        <td>PRODUK_TIDAK_TERSEDIA</td>
         <td>41</td>
         <td>Produk tidak tersedia saat ini</td>
       </tr>
       <tr>
-        <td>PRODUK_BUKAN_PPOB</td>
         <td>42</td>
         <td>Produk bukan pembayaran</td>
       </tr>
       <tr>
-        <td>PRODUK_BUKAN_ELEKTRIK</td>
         <td>42</td>
         <td>Kode produk untuk inquery dan payment</td>
       </tr>
       <tr>
-        <td>TAGIHAN_TIDAK_TERSEDIA</td>
         <td>43</td>
         <td>Inquery tagihan tidak tersedia,pastikan inquery sudah dilakukan</td>
       </tr>
       <tr>
-        <td>CUTOFF_SYSTEM</td>
         <td>44</td>
         <td>System cutoff</td>
       </tr>
       <tr>
-        <td>CUTOFF_PRODUK</td>
         <td>45</td>
         <td>Product cutoff</td>
       </tr>
       <tr>
-        <td>PRODUK_GANGGUAN</td>
         <td>46</td>
         <td>Produk Gangguan</td>
       </tr>
       <tr>
-        <td>PRODUK_STOK_KOSONG</td>
         <td>47</td>
         <td>Produk Stok Kosong</td>
       </tr>
       <tr>
-        <td>SALDO_TIDAK_CUKUP</td>
         <td>48</td>
         <td>Saldo tidak cukup</td>
       </tr>
       <tr>
-        <td>STOK_TIDAK_CUKUP</td>
         <td>49</td>
         <td>stok tidak cukup</td>
       </tr>
       <tr>
-        <td>MISSING_PARAMS</td>
         <td>53</td>
         <td>bad request</td>
       </tr>
-    </tbody>
-  </table>
-
-        <p>Contoh Response:</p>
-        <div class="tabs-scroll-wrapper">
-          <button class="tabs-arrow tabs-arrow-prev" type="button" aria-label="Tab sebelumnya" title="Tab sebelumnya">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-          </button>
-          <div class="response-tabs" role="tablist" aria-label="Contoh response 400 Bad Request">
-            <button class="response-tab active" id="rc400-reqprice-tab" type="button" role="tab" aria-selected="true" aria-controls="rc400-reqprice-panel">TRX_REQ_PRICE_NOT_MATCH</button>
-            <button class="response-tab" id="rc400-inqexpired-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-inqexpired-panel" tabindex="-1">INQUERY_EXPIRED</button>
-            <button class="response-tab" id="rc400-reject-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-reject-panel" tabindex="-1">TRX_REJECT</button>
-            <button class="response-tab" id="rc400-produktdk-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-produktdk-panel" tabindex="-1">PRODUK_TIDAK_TERSEDIA</button>
-            <button class="response-tab" id="rc400-bukanppob-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-bukanppob-panel" tabindex="-1">PRODUK_BUKAN_PPOB</button>
-            <button class="response-tab" id="rc400-bukanelektrik-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-bukanelektrik-panel" tabindex="-1">PRODUK_BUKAN_ELEKTRIK</button>
-            <button class="response-tab" id="rc400-tagihan-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-tagihan-panel" tabindex="-1">TAGIHAN_TIDAK_TERSEDIA</button>
-            <button class="response-tab" id="rc400-cutoffsys-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-cutoffsys-panel" tabindex="-1">CUTOFF_SYSTEM</button>
-            <button class="response-tab" id="rc400-cutoffprod-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-cutoffprod-panel" tabindex="-1">CUTOFF_PRODUK</button>
-            <button class="response-tab" id="rc400-gangguan-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-gangguan-panel" tabindex="-1">PRODUK_GANGGUAN</button>
-            <button class="response-tab" id="rc400-stokkosong-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-stokkosong-panel" tabindex="-1">PRODUK_STOK_KOSONG</button>
-            <button class="response-tab" id="rc400-saldo-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-saldo-panel" tabindex="-1">SALDO_TIDAK_CUKUP</button>
-            <button class="response-tab" id="rc400-stok-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-stok-panel" tabindex="-1">STOK_TIDAK_CUKUP</button>
-            <button class="response-tab" id="rc400-missing-tab" type="button" role="tab" aria-selected="false" aria-controls="rc400-missing-panel" tabindex="-1">MISSING_PARAMS</button>
-          </div>
-          <button class="tabs-arrow tabs-arrow-next" type="button" aria-label="Tab berikutnya" title="Tab berikutnya">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </button>
-        </div>
-
-        <div class="response-panel" id="rc400-reqprice-panel" role="tabpanel" aria-labelledby="rc400-reqprice-tab">
-        <pre><code class="key-value-example"><span class="code-blue">TRX_REQ_PRICE_NOT_MATCH</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "29",
-      <span class="code-blue">respMessage</span>: "harga request tidak sesuai",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-inqexpired-panel" role="tabpanel" aria-labelledby="rc400-inqexpired-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">INQUERY_EXPIRED</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "30",
-      <span class="code-blue">respMessage</span>: "Data inquery sudah digunakan payment,silahkan inquery ulang dengan reff_id baru",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-reject-panel" role="tabpanel" aria-labelledby="rc400-reject-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">TRX_REJECT</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "40",
-      <span class="code-blue">respMessage</span>: "Transaksi ditolak",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-produktdk-panel" role="tabpanel" aria-labelledby="rc400-produktdk-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">PRODUK_TIDAK_TERSEDIA</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "41",
-      <span class="code-blue">respMessage</span>: "Produk tidak tersedia saat ini",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-bukanppob-panel" role="tabpanel" aria-labelledby="rc400-bukanppob-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">PRODUK_BUKAN_PPOB</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "42",
-      <span class="code-blue">respMessage</span>: "Produk bukan pembayaran",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-bukanelektrik-panel" role="tabpanel" aria-labelledby="rc400-bukanelektrik-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">PRODUK_BUKAN_ELEKTRIK</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "42",
-      <span class="code-blue">respMessage</span>: "Kode produk untuk inquery dan payment",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-tagihan-panel" role="tabpanel" aria-labelledby="rc400-tagihan-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">TAGIHAN_TIDAK_TERSEDIA</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "43",
-      <span class="code-blue">respMessage</span>: "Inquery tagihan tidak tersedia,pastikan inquery sudah dilakukan",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-cutoffsys-panel" role="tabpanel" aria-labelledby="rc400-cutoffsys-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">CUTOFF_SYSTEM</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "44",
-      <span class="code-blue">respMessage</span>: "System cutoff",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-cutoffprod-panel" role="tabpanel" aria-labelledby="rc400-cutoffprod-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">CUTOFF_PRODUK</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "45",
-      <span class="code-blue">respMessage</span>: "Product cutoff",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-gangguan-panel" role="tabpanel" aria-labelledby="rc400-gangguan-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">PRODUK_GANGGUAN</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "46",
-      <span class="code-blue">respMessage</span>: "Produk Gangguan",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-stokkosong-panel" role="tabpanel" aria-labelledby="rc400-stokkosong-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">PRODUK_STOK_KOSONG</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "47",
-      <span class="code-blue">respMessage</span>: "Produk Stok Kosong",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-saldo-panel" role="tabpanel" aria-labelledby="rc400-saldo-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">SALDO_TIDAK_CUKUP</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "48",
-      <span class="code-blue">respMessage</span>: "Saldo tidak cukup",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-stok-panel" role="tabpanel" aria-labelledby="rc400-stok-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">STOK_TIDAK_CUKUP</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "49",
-      <span class="code-blue">respMessage</span>: "stok tidak cukup",
-    },
-  }</code></pre>
-        </div>
-
-        <div class="response-panel" id="rc400-missing-panel" role="tabpanel" aria-labelledby="rc400-missing-tab" hidden>
-        <pre><code class="key-value-example"><span class="code-blue">MISSING_PARAMS</span>: {
-    <span class="code-blue">httpStatus</span>: 400,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "53",
-      <span class="code-blue">respMessage</span>: "bad request",
-    },
-  }</code></pre>
-        </div>
-
-  <h3>401 - Unauthorized</h3>
-
-  <table>
-    <thead>
       <tr>
-        <th>Response Name</th>
-        <th>Response Code</th>
-        <th>Response Message</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>INVALID_HEADER</td>
         <td>51</td>
         <td>Header not valid</td>
       </tr>
       <tr>
-        <td>INVALID_REQUEST</td>
         <td>52</td>
         <td>invalid request</td>
       </tr>
       <tr>
-        <td>INVALID_CREDENTIAL</td>
         <td>54</td>
         <td>invalid credential</td>
       </tr>
       <tr>
-        <td>INVALID_SIGNATURE</td>
         <td>55</td>
         <td>invalid signature</td>
       </tr>
       <tr>
-        <td>UNAUTHORIZED</td>
         <td>99</td>
         <td>Unauthorized</td>
       </tr>
-    </tbody>
-  </table>
-
-  <p>Contoh Response:</p>
-  <div class="tabs-scroll-wrapper tabs-scroll-responsive">
-    <button class="tabs-arrow tabs-arrow-prev" type="button" aria-label="Tab sebelumnya" title="Tab sebelumnya">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-    </button>
-    <div class="response-tabs" role="tablist" aria-label="Contoh response 401 Unauthorized">
-      <button class="response-tab active" id="rc401-invalid-header-tab" type="button" role="tab" aria-selected="true" aria-controls="rc401-invalid-header-panel">INVALID_HEADER</button>
-      <button class="response-tab" id="rc401-invalid-request-tab" type="button" role="tab" aria-selected="false" aria-controls="rc401-invalid-request-panel" tabindex="-1">INVALID_REQUEST</button>
-      <button class="response-tab" id="rc401-invalid-credential-tab" type="button" role="tab" aria-selected="false" aria-controls="rc401-invalid-credential-panel" tabindex="-1">INVALID_CREDENTIAL</button>
-      <button class="response-tab" id="rc401-invalid-signature-tab" type="button" role="tab" aria-selected="false" aria-controls="rc401-invalid-signature-panel" tabindex="-1">INVALID_SIGNATURE</button>
-      <button class="response-tab" id="rc401-unauthorized-tab" type="button" role="tab" aria-selected="false" aria-controls="rc401-unauthorized-panel" tabindex="-1">UNAUTHORIZED</button>
-    </div>
-    <button class="tabs-arrow tabs-arrow-next" type="button" aria-label="Tab berikutnya" title="Tab berikutnya">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>
-  </div>
-
-  <div class="response-panel" id="rc401-invalid-header-panel" role="tabpanel" aria-labelledby="rc401-invalid-header-tab">
-  <pre><code class="key-value-example"><span class="code-blue">INVALID_HEADER</span>: {
-    <span class="code-blue">httpStatus</span>: 401,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "51",
-      <span class="code-blue">respMessage</span>: "Header not valid",
-    },
-  }</code></pre>
-  </div>
-
-  <div class="response-panel" id="rc401-invalid-request-panel" role="tabpanel" aria-labelledby="rc401-invalid-request-tab" hidden>
-  <pre><code class="key-value-example"><span class="code-blue">INVALID_REQUEST</span>: {
-    <span class="code-blue">httpStatus</span>: 401,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "52",
-      <span class="code-blue">respMessage</span>: "invalid request",
-    },
-  }</code></pre>
-  </div>
-
-  <div class="response-panel" id="rc401-invalid-credential-panel" role="tabpanel" aria-labelledby="rc401-invalid-credential-tab" hidden>
-  <pre><code class="key-value-example"><span class="code-blue">INVALID_CREDENTIAL</span>: {
-    <span class="code-blue">httpStatus</span>: 401,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "54",
-      <span class="code-blue">respMessage</span>: "invalid credential",
-    },
-  }</code></pre>
-  </div>
-
-  <div class="response-panel" id="rc401-invalid-signature-panel" role="tabpanel" aria-labelledby="rc401-invalid-signature-tab" hidden>
-  <pre><code class="key-value-example"><span class="code-blue">INVALID_SIGNATURE</span>: {
-    <span class="code-blue">httpStatus</span>: 401,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "55",
-      <span class="code-blue">respMessage</span>: "invalid signature",
-    },
-  }</code></pre>
-  </div>
-
-  <div class="response-panel" id="rc401-unauthorized-panel" role="tabpanel" aria-labelledby="rc401-unauthorized-tab" hidden>
-  <pre><code class="key-value-example"><span class="code-blue">UNAUTHORIZED</span>: {
-    <span class="code-blue">httpStatus</span>: 401,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "99",
-      <span class="code-blue">respMessage</span>: "Unauthorized",
-    },
-  }</code></pre>
-  </div>
-
-  <h3>500 - Internal Server Error</h3>
-
-  <table>
-    <thead>
       <tr>
-        <th>Response Name</th>
-        <th>Response Code</th>
-        <th>Response Message</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>TRX_INTERNAL_ERROR</td>
         <td>50</td>
         <td>Internal Server Error</td>
       </tr>
     </tbody>
   </table>
-
-  <p>Contoh Response:</p>
-  <div class="response-tabs" role="tablist" aria-label="Contoh response 500 Internal Server Error">
-    <button class="response-tab active" id="rc500-trx-internal-error-tab" type="button" role="tab" aria-selected="true" aria-controls="rc500-trx-internal-error-panel">TRX_INTERNAL_ERROR</button>
-  </div>
-
-  <div class="response-panel" id="rc500-trx-internal-error-panel" role="tabpanel" aria-labelledby="rc500-trx-internal-error-tab">
-  <pre><code class="key-value-example"><span class="code-blue">TRX_INTERNAL_ERROR</span>: {
-    <span class="code-blue">httpStatus</span>: 500,
-    <span class="code-blue">response</span>: {
-      <span class="code-blue">respCode</span>: "50",
-      <span class="code-blue">respMessage</span>: "Internal Server Error",
-    },
-  }</code></pre>
-  </div>
 
       </div>
     </main>
