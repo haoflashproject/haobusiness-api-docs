@@ -355,21 +355,21 @@
 
         <tr>
         <td>Product List</td>
-        <td>Mendapatkan daftar produk digital yang tersedia</td>
+        <td>Get list of available digital products</td>
         <td>/getproduct</td>
         <td>GET</td>
         </tr>
         
         <tr>
         <td>Topup</td>
-        <td>Melakukan transaksi produk digital prabayar</td>
+        <td>Sent topup payment request</td>
         <td>/topup</td>
         <td>POST</td>
         </tr>
 
         <tr>
         <td>Inquery</td>
-        <td>Memeriksa rincian tagihan PPOB pelanggan sebelum pembayaran</td>
+        <td>Get a bill detail for a specific Customer ID</td>
         <td>/inquery</td>
         <td>POST</td>
         </tr>
@@ -377,21 +377,21 @@
 
         <tr>
         <td>Payment</td>
-        <td>Membayar tagihan PPOB setelah inquery</td>
+        <td>Sent payment request</td>
         <td>/payment</td>
         <td>POST</td>
         </tr>
 
         <tr>
         <td>Balance</td>
-        <td>Memeriksa saldo akun mitra</td>
+        <td>Get account balance information</td>
         <td>/balance</td>
         <td>GET</td>
         </tr>
 
         <tr>
         <td>Check Status</td>
-        <td>Memeriksa final status transaksi</td>
+        <td>Get final transaction status</td>
         <td>/checkstatus</td>
         <td>GET</td>
         </tr>
@@ -1075,7 +1075,7 @@ function CreateHMAC(canonicalRequest, secret) {
           <th>Type</th>
         </tr></thead><tbody>
           <tr><td>saldo</td><td>Balance</td><td>Number</td></tr>
-          <tr><td>update_at</td><td>Last Update Timestamp (date-time ISO 8601)</td><td>String</td></tr>
+          <tr><td>update_at</td><td>Last Update Date ISO 8601</td><td>String</td></tr>
         </tbody></table>
 
         <h3>Check Status</h3>
