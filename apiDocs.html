@@ -1384,6 +1384,13 @@ function CreateHMAC(canonicalRequest, secret) {
 
         <h4>Response</h4>
         <p>Contoh Response:</p>
+        <div class="response-tabs" role="tablist" aria-label="Contoh response Topup">
+          <button class="response-tab active" id="topup-success-tab" type="button" role="tab" aria-selected="true" aria-controls="topup-success-panel">Sukses</button>
+          <button class="response-tab" id="topup-failed-tab" type="button" role="tab" aria-selected="false" aria-controls="topup-failed-panel" tabindex="-1">Gagal</button>
+          <button class="response-tab" id="topup-pending-tab" type="button" role="tab" aria-selected="false" aria-controls="topup-pending-panel" tabindex="-1">Pending</button>
+        </div>
+
+        <div class="response-panel" id="topup-success-panel" role="tabpanel" aria-labelledby="topup-success-tab">
         <pre><code class="language-json">{
   "respCode": "00",
   "respMessage": "SUKSES",
@@ -1402,6 +1409,49 @@ function CreateHMAC(canonicalRequest, secret) {
     "saldo": 20000
   }
 }</pre></code>
+        </div>
+
+        <div class="response-panel" id="topup-failed-panel" role="tabpanel" aria-labelledby="topup-failed-tab" hidden>
+        <pre><code class="language-json">{
+  "respCode": "02",
+  "respMessage": "GAGAL",
+  "timestamp": "2026-10-24T05:19:10.60+07:00",
+  "data": {
+    "req_date": "2026-10-24T05:19:05.00+07:00",
+    "reff_id": "123456723",
+    "product": "S5",
+    "customer_id": "081230000002",
+    "biller_reff": "19Sa05100508530",
+    "req_price": 0,
+    "price": "5950",
+    "sn": "",
+    "message": "Trx S5 ke 081230000002 GAGAL. Nomor tujuan tidak aktif",
+    "trans_date": "2026-10-24T05:19:05.59+07:00",
+    "saldo": 20000
+  }
+}</pre></code>
+        </div>
+
+        <div class="response-panel" id="topup-pending-panel" role="tabpanel" aria-labelledby="topup-pending-tab" hidden>
+        <pre><code class="language-json">{
+  "respCode": "01",
+  "respMessage": "PENDING",
+  "timestamp": "2026-10-24T05:19:54.38+07:00",
+  "data": {
+    "req_date": "2026-10-24T05:19:49.00+07:00",
+    "reff_id": "123456755",
+    "product": "S5",
+    "customer_id": "081230000001",
+    "biller_reff": "",
+    "req_price": 0,
+    "price": 0,
+    "sn": "",
+    "message": "",
+    "trans_date": "",
+    "saldo": 20000
+  }
+}</pre></code>
+        </div>
 
         <h3>Inquery </h3>
         <h4>Endpoint Path</h4>
