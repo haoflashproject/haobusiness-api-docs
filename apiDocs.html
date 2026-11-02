@@ -237,11 +237,23 @@ border-left-color: #0366d6; color: #0366d6; background: #e8f0fe; font-weight: 60
       color: var(--color-code-blue) !important;
     }
 
+    .img-footer {
+      width: auto;
+      height: 40px;
+      object-fit: contain;
+    }
+
     .site-footer {
+      position: relative;
       padding: 24px 16px 32px;
-      color: var(--color-text-secondary);
+      color: var(--color-primary-100);
       text-align: center;
       font-size: 0.85rem;
+      background-color: #303846;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900'%3E%3Cpath fill='rgba(255,255,255,0.05)' d='M0,300 C300,400 600,200 900,300 C1200,400 1350,250 1440,300 L1440,0 L0,0 Z'/%3E%3Cpath fill='rgba(255,255,255,0.03)' d='M0,500 C200,600 500,400 800,500 C1100,600 1300,450 1440,500 L1440,0 L0,0 Z'/%3E%3Cpath fill='rgba(255,255,255,0.02)' d='M0,700 C250,800 550,650 850,750 C1150,850 1350,700 1440,750 L1440,900 L0,900 Z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
       border-top: 1px solid var(--color-divider);
     }
 
@@ -2091,7 +2103,7 @@ function CreateHMAC(canonicalRequest, secret) {
     <thead>
       <tr>
         <th>RC</th>
-        <th>MESSAGE</th>
+        <th>Message</th>
       </tr>
     </thead>
     <tbody>
@@ -2207,6 +2219,7 @@ function CreateHMAC(canonicalRequest, secret) {
   </div>
 
   <footer class="site-footer">
+    <img class="img-footer" src="images/deltav1logo.png" alt="Logo Delta">
     <p> Copyright &copy; 2026 PT. DELTA</p>
   </footer>
 
